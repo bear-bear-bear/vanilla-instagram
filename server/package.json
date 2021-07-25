@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged",
     "prepare": "cd ../ && npx husky install server/.husky"
   },
   "lint-staged": {
@@ -14,11 +13,6 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
   },
   "repository": {
     "type": "git",
