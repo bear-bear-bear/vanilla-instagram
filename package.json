@@ -1,18 +1,18 @@
 {
-  "name": "banila-instagram",
+  "name": "vanilla-instagram",
   "version": "1.0.0",
   "description": "바닐라 JS로 구현하는 인스타그램",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bear-bear-bear/banila-instagram.git"
+    "url": "git+https://github.com/bear-bear-bear/vanilla-instagram.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bear-bear-bear/banila-instagram/issues"
+    "url": "https://github.com/bear-bear-bear/vanilla-instagram/issues"
   },
-  "homepage": "https://github.com/bear-bear-bear/banila-instagram#readme",
+  "homepage": "https://github.com/bear-bear-bear/vanilla-instagram#readme",
   "devDependencies": {
     "husky": "^4.2.3"
   }
