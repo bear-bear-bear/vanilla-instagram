@@ -1,0 +1,21 @@
+{
+  "name": "vanilla-instagram-server",
+  "version": "1.0.0",
+  "description": "Typescript, koa.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bear-bear-bear/vanilla-instagram.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bear-bear-bear/vanilla-instagram/issues"
+  },
+  "homepage": "https://github.com/bear-bear-bear/vanilla-instagram#readme"
+}
