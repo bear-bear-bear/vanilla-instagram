@@ -76,5 +76,11 @@
     "skipLibCheck": true, /* 선언 파일의 유형 검사를 건너뜁니다. */
     "forceConsistentCasingInFileNames": true /* 동일한 파일에 대해 대소문자가 일치하지 않는 참조를 허용하지 않습니다 */
   },
-  "exclude": ["**/*/node_modules"]
+  "include": [  
+    "./**/*.ts",
+    ".eslintrc.js"
+  ],  
+  "exclude": [  
+    "node_modules"  
+  ]
 }
