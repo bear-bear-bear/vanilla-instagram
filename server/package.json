@@ -8,7 +8,7 @@
     "prepare": "cd ../ && npx husky install server/.husky"
   },
   "lint-staged": {
-    "**/*.{js,ts}": [
+    "src/**/*.{js,ts}": [
       "eslint . --fix",
       "prettier --write"
     ]

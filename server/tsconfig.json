@@ -51,8 +51,7 @@
     // "moduleResolution": "node", /* 모듈 확인 전략을 지정합니다. 'node'(Node.js) 또는 'classic'(TypeScript 1.6 이전). */
     "baseUrl": "./", /* 절대적이지 않은 모듈 이름을 확인하기 위한 기본 디렉토리. */
     "paths": {
-      "@lib/*": ["./lib/*"],
-      "@typings/*": ["./typings/*"]
+      "@*": ["./src/*"],
     }, /* 'baseUrl'과 관련된 조회 위치로 가져오기를 다시 매핑하는 일련의 항목. */
     // "rootDirs": [], /* 결합된 콘텐츠가 런타임 시 프로젝트의 구조를 나타내는 루트 폴더 목록입니다. */
     // "typeRoots": [], /* 유형 정의를 포함할 폴더 목록입니다. */
@@ -77,7 +76,8 @@
     "forceConsistentCasingInFileNames": true /* 동일한 파일에 대해 대소문자가 일치하지 않는 참조를 허용하지 않습니다 */
   },
   "include": [  
-    "./**/*.ts",
+    "**/*.ts",
+    "src/**/*",
     ".eslintrc.js"
   ],  
   "exclude": [  
