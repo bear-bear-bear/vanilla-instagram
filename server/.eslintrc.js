@@ -17,7 +17,7 @@ module.exports = {
     browser: false,
     node: true,
   },
-  ignorePatterns: ['node_modules', 'dist'],
+  ignorePatterns: ['node_modules', '*\\.test.[jt]s'],
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-console': 'warn',

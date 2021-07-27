@@ -4,8 +4,9 @@
   "description": "Typescript, koa.js",
   "main": "src/index.ts",
   "scripts": {
-    "prod": "cross-env NODE_ENV=production node",
-    "dev": "cross-env NODE_ENV=development nodemon --watch",
+    "test": "jest",
+    "prod": "cross-env NODE_ENV=production node src",
+    "dev": "cross-env NODE_ENV=development nodemon --watch src",
     "prepare": "cd ../ && npx husky install server/.husky"
   },
   "lint-staged": {
@@ -24,10 +25,15 @@
     "koa-router": "^10.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.24",
     "@types/koa": "^2.13.4",
     "@types/koa-router": "^7.4.4",
+    "@types/node": "^16.4.3",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
+    "babel-jest": "^27.0.6",
     "cross-env": "^7.0.3",
     "eslint": "^7.31.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
@@ -35,9 +41,12 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^4.2.3",
+    "jest": "^27.0.6",
     "lint-staged": "^10.0.0-1",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
+    "supertest": "^6.1.4",
+    "ts-jest": "^27.0.4",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   },
