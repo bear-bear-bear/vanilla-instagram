@@ -5,8 +5,8 @@
     target ES5의 기본 값: dom, es5, scripthost
     target ES6의 기본 값: dom, dom.iterable, es6, scripthost
     */
-    "target": "es5", /* 컴파일 후 생성될 파일의 ECMAScript 대상 버전 지정: 'ES3'(기본값), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021' 또는 'ESNEXT'. */
-    "module": "commonjs", /* 컴파일 후 생성될 파일이 사용하는 모듈 버전 지정: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020' 또는 'ESNext'. */
+    "target": "es2017", /* 컴파일 후 생성될 파일의 ECMAScript 대상 버전 지정: 'ES3'(기본값), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021' 또는 'ESNEXT'. */
+    "module": "ESNext", /* 컴파일 후 생성될 파일이 사용하는 모듈 버전 지정: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020' 또는 'ESNext'. */
     "lib": [
       "es5",
       "DOM",
@@ -48,7 +48,7 @@
     // "noPropertyAccessFromIndexSignature": true, /* 요소 액세스를 사용하려면 인덱스 서명에서 선언되지 않은 속성이 필요합니다. */
 
     /* 모듈 해상도 옵션 */
-    // "moduleResolution": "node", /* 모듈 확인 전략을 지정합니다. 'node'(Node.js) 또는 'classic'(TypeScript 1.6 이전). */
+    "moduleResolution": "node", /* 모듈 확인 전략을 지정합니다. 'node'(Node.js) 또는 'classic'(TypeScript 1.6 이전). */
     "baseUrl": "./", /* 절대적이지 않은 모듈 이름을 확인하기 위한 기본 디렉토리. */
     "paths": {
       "@*": ["./src/*"],
@@ -75,9 +75,7 @@
     "skipLibCheck": true, /* 선언 파일의 유형 검사를 건너뜁니다. */
     "forceConsistentCasingInFileNames": true /* 동일한 파일에 대해 대소문자가 일치하지 않는 참조를 허용하지 않습니다 */
   },
-  "include": [  
-    "**/*.ts",
-    "**/*.js",
+  "include": [
     "src/**/*",
     ".eslintrc.js"
   ],  

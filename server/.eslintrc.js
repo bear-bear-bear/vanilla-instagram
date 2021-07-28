@@ -1,4 +1,11 @@
 module.exports = {
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: __dirname,
+      },
+    },
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [
@@ -25,5 +32,6 @@ module.exports = {
     'no-shadow': 'off', // 아래 @typescript-eslint/no-shadow 과의 충돌을 피하기 위해 off 처리
     '@typescript-eslint/no-shadow': ['error'],
     'no-use-before-define': ['error', { functions: true, classes: true }],
+    'import/no-unresolved': 'error',
   },
 };
