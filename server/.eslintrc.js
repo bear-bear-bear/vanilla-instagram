@@ -33,5 +33,13 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     'no-use-before-define': ['error', { functions: true, classes: true }],
     'import/no-unresolved': 'error',
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['acc'],
+      },
+    ],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };
