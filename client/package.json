@@ -8,7 +8,9 @@
     "analyze": "webpack-bundle-analyzer ./stats.json",
     "build": "webpack --env development --progress",
     "build:prod": "webpack --env production --progress",
-    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\""
+    "start": "npm run start:without-server",
+    "start:without-server": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\"",
+    "start:with-server": ""
   },
   "lint-staged": {
     "**/*.js": [
