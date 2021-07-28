@@ -104,11 +104,12 @@ const commonConfig = merge([
       modules: false,
     },
     plugins: [
-      // new HtmlPlugin({
-      //   template: './index.pug',
-      // }),
       new FriendlyErrorsPlugin(),
       new StylelintPlugin(lintStylesOptions),
+      new ManifestPlugin({
+        fileName: 'manifest.json',
+      }),
+      new CleanPlugin(),
     ],
     module: {
       noParse: /\.min\.js/,
@@ -145,10 +146,6 @@ const productionConfig = merge([
     plugins: [
       // new StatsWriterPlugin({ fields: null, filename: '../stats.json' }),
       new webpack.HashedModuleIdsPlugin(),
-      new ManifestPlugin({
-        fileName: 'manifest.json',
-      }),
-      new CleanPlugin(),
     ],
   },
   parts.minifyJS({
@@ -209,7 +206,6 @@ const productionConfig = merge([
   parts.loadImages({
     include: paths.app,
     options: {
-      limit: 15000,
       name: `${paths.images}/[name].[hash:8].[ext]`,
     },
   }),
@@ -220,9 +216,25 @@ const productionConfig = merge([
 const developmentConfig = merge([
   {
     mode: 'development',
+    output: {
+      chunkFilename: `${paths.js}/[name]..js`,
+      filename: `${paths.js}/[name].js`,
+    },
   },
-  parts.loadCSS({ include: paths.app, use: [...cssPreprocessorLoader] }),
-  parts.loadImages({ include: paths.app }),
+  parts.extractCSS({
+    include: paths.app,
+    use: [...cssPreprocessorLoader],
+    options: {
+      filename: `${paths.css}/[name].css`,
+      chunkFilename: `${paths.css}/[id].css`,
+    },
+  }),
+  parts.loadImages({
+    include: paths.app,
+    options: {
+      name: `${paths.images}/[name].[ext]`,
+    },
+  }),
   parts.loadJS({ include: paths.app }),
 ]);
 

@@ -91,21 +91,6 @@ exports.minifyCSS = ({ options }) => ({
   },
 });
 
-exports.loadCSS = ({ include, exclude, use } = {}) => ({
-  module: {
-    rules: [
-      {
-        test: /\.(sa|sc|c)ss$/,
-
-        include,
-        exclude,
-
-        use: [...sharedCSSLoaders.concat(use)],
-      },
-    ],
-  },
-});
-
 exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
   module: {
     rules: [
@@ -133,11 +118,21 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
 
         use: {
           loader: 'url-loader',
-          options,
+          options: {
+            limit: 15000,
+            publicPath: '../',
+            useRelativePaths: true,
+            ...options,
+          },
         },
       },
     ],
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: 'images', to: 'images' }],
+    }),
+  ],
 });
 
 exports.optimizeImages = ({ include, exclude } = {}) => ({
