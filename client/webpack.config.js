@@ -184,8 +184,6 @@ const productionConfig = merge([
     // Use multi-process parallel running to improve the build speed
     // Default number of concurrent runs: os.cpus().length - 1
     parallel: true,
-    // Enable file caching
-    cache: true,
   }),
   parts.loadJS({
     include: paths.app,
@@ -223,10 +221,6 @@ const developmentConfig = merge([
   {
     mode: 'development',
   },
-  parts.devServer({
-    host: process.env.HOST,
-    port: process.env.PORT,
-  }),
   parts.loadCSS({ include: paths.app, use: [...cssPreprocessorLoader] }),
   parts.loadImages({ include: paths.app }),
   parts.loadJS({ include: paths.app }),

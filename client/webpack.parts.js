@@ -49,7 +49,11 @@ exports.loadPug = () => ({
       },
     ],
   },
-  plugins: [new CopyPlugin([{ from: 'views', to: 'views' }])],
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: 'views', to: 'views' }],
+    }),
+  ],
 });
 
 exports.lintJS = ({ include, exclude, options }) => ({

@@ -9,7 +9,6 @@
     "build": "webpack --env development --progress",
     "build:prod": "webpack --env production --progress",
     "start": "npm run start:without-server",
-    "start:without-server": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\"",
     "start:with-server": ""
   },
   "lint-staged": {
@@ -34,7 +33,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
-    "copy-webpack-plugin": "^9.0.1",
+    "copy-webpack-plugin": "^6.3.2",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
     "eslint": "^7.2.0",
