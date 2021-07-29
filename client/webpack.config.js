@@ -1,4 +1,5 @@
 const path = require('path');
+const glob = require('glob');
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -75,8 +76,6 @@ const paths = getPaths({
   sourceDir: 'app',
   buildDir: parts.BUILD_PATH,
 });
-
-console.log('paths', paths);
 
 const lintStylesOptions = {
   context: path.resolve(__dirname, `${paths.app}/styles`),
@@ -210,6 +209,10 @@ const productionConfig = merge([
       chunkFilename: `${paths.css}/[id].[contenthash:8].css`,
     },
   }),
+  parts.purifyCSS({
+    paths: glob.sync(`${paths.app}/**/*.+(pug|js)`, { nodir: true }),
+    styleExtensions: ['.css', '.scss'],
+  }),
   parts.minifyCSS({
     options: {
       discardComments: {
@@ -253,6 +256,23 @@ const developmentConfig = merge([
   parts.loadJS({ include: paths.app }),
 ]);
 
+// FIXME: 구조 변경하기 - bear
+const pageInfos = [
+  {
+    pugFilename: 'index.pug',
+    entryJsFilename: 'index.js',
+    chunk: 'home',
+    pathTo: '',
+  },
+  {
+    pugFilename: 'test.pug',
+    entryJsFilename: 'test.js',
+    chunk: 'test',
+    pathTo: 'test',
+  },
+];
+const pages = parts.createPages(paths.app, pageInfos);
+
 module.exports = (env) => {
   const envMap = {
     development: 'development',
@@ -262,5 +282,5 @@ module.exports = (env) => {
   process.env.IS_DEV_SERVER = env === 'dev-server' ? 'true' : 'false';
   process.env.NODE_ENV = envMap[env];
 
-  return merge(commonConfig, env === 'production' ? productionConfig : developmentConfig);
+  return merge(commonConfig, env === 'production' ? productionConfig : developmentConfig, ...pages);
 };

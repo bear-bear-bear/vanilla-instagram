@@ -1,7 +1,11 @@
+const path = require('path');
+
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 
 const PUBLIC_PATH = '/';
 const BUILD_PATH = '../server/src/public';
@@ -40,21 +44,41 @@ exports.devServer = ({ host } = {}) => ({
   },
 });
 
-exports.loadPug = () => ({
+exports.loadPug = (options) => ({
   module: {
     rules: [
       {
         test: /\.pug$/,
-        use: ['pug-loader'],
+        use: [
+          {
+            loader: 'html-loader',
+          },
+          {
+            loader: 'pug-html-loader',
+            options,
+          },
+        ],
       },
     ],
   },
-  plugins: [
-    new CopyPlugin({
-      patterns: [{ from: 'views', to: 'views' }],
-    }),
-  ],
 });
+
+// copy pug
+// {
+//   module: {
+//     rules: [
+//       {
+//         test: /\.pug$/,
+//         use: ['pug-loader'],
+//       },
+//     ],
+//   },
+//   plugins: [
+//     new CopyPlugin({
+//       patterns: [{ from: 'views', to: 'views' }],
+//     }),
+//   ],
+// };
 
 exports.lintJS = ({ include, exclude, options }) => ({
   module: {
@@ -79,6 +103,10 @@ const sharedCSSLoaders = [
     },
   },
 ];
+
+exports.purifyCSS = (options) => ({
+  plugins: [new PurifyCSSPlugin(options)],
+});
 
 exports.minifyCSS = ({ options }) => ({
   optimization: {
@@ -128,11 +156,6 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
       },
     ],
   },
-  plugins: [
-    new CopyPlugin({
-      patterns: [{ from: 'images', to: 'images' }],
-    }),
-  ],
 });
 
 exports.optimizeImages = ({ include, exclude } = {}) => ({
@@ -216,3 +239,42 @@ exports.minifyJS = (options) => ({
     minimizer: [new TerserPlugin(options)],
   },
 });
+
+const page = ({
+  pathTo = '',
+  template = require.resolve('html-webpack-plugin/default_index.ejs'),
+  title,
+  entry,
+  chunks,
+} = {}) => ({
+  entry,
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: `${pathTo && `${pathTo}/`}index.html`,
+      template,
+      title,
+      chunks,
+    }),
+  ],
+});
+
+/**
+ * @param {string} appPath - 작업한 파일들이 있는 디렉터리 (ex - client/app/)
+ * @param {array} pageInfo - { pugFilename, entryJsFilename, chunk } object array
+ */
+exports.createPages = (appPath, pageInfo) => {
+  return pageInfo.map(({ pugFilename, entryJsFilename, chunk, pathTo }) => {
+    const removeExtention = (filename) => filename.split('.').slice(0, -1);
+
+    return page({
+      pathTo,
+      filename: `${removeExtention(pugFilename)}.html`,
+      entry: {
+        home: path.join(appPath, `scripts/${entryJsFilename}`),
+      },
+      template: path.join(appPath, pugFilename),
+      // An array of chunks to include in the page
+      chunks: [chunk, 'runtime', 'vendors'],
+    });
+  });
+};
