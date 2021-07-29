@@ -2,7 +2,10 @@
   "name": "vanilla-instagram",
   "version": "1.0.0",
   "description": "바닐라 JS로 구현하는 인스타그램",
-  "main": "index.js",
+  "main": "",
+  "scripts": {
+    "build": "cd client && npm run build:prod"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bear-bear-bear/vanilla-instagram.git"
