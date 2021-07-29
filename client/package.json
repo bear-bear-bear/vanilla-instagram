@@ -9,7 +9,7 @@
     "build:dev": "webpack --env development --progress",
     "build:prod": "webpack --env production --progress",
     "start": "npm run start:without-server",
-    "start:with-server": ""
+    "start:without-server": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env dev-server\""
   },
   "lint-staged": {
     "**/*.js": [
@@ -54,6 +54,7 @@
     "image-webpack-loader": "^4.6.0",
     "lint-staged": "^11.1.1",
     "mini-css-extract-plugin": "^0.6.0",
+    "nodemon": "^2.0.12",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "postcss-loader": "^4.2.0",
     "prettier": "^2.3.2",
@@ -69,6 +70,7 @@
     "webpack": "^4.30.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "3.3.0",
+    "webpack-dev-server": "^3.11.2",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "^4.2.1"
   },

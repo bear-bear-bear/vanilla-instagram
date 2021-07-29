@@ -76,6 +76,8 @@ const paths = getPaths({
   buildDir: parts.BUILD_PATH,
 });
 
+console.log('paths', paths);
+
 const lintStylesOptions = {
   context: path.resolve(__dirname, `${paths.app}/styles`),
   syntax: 'scss',
@@ -104,12 +106,23 @@ const commonConfig = merge([
       modules: false,
     },
     plugins: [
-      new FriendlyErrorsPlugin(),
-      new StylelintPlugin(lintStylesOptions),
       new ManifestPlugin({
         fileName: 'manifest.json',
+        // filter: (file) => !file.path.match(/\.map$/), // 맵 파일 제거
+        // map: (file) => {
+        //   const extension = path.extname(file.name).slice(1);
+
+        //   return {
+        //     ...file,
+        //     name: ['css', 'js'].includes(extension)
+        //       ? `${extension}/${file.name}`
+        //       : file.name
+        //   }
+        // },
+        // useEntryKeys: true,
       }),
-      new CleanPlugin(),
+      new FriendlyErrorsPlugin(),
+      new StylelintPlugin(lintStylesOptions),
     ],
     module: {
       noParse: /\.min\.js/,
@@ -146,6 +159,7 @@ const productionConfig = merge([
     plugins: [
       // new StatsWriterPlugin({ fields: null, filename: '../stats.json' }),
       new webpack.HashedModuleIdsPlugin(),
+      new CleanPlugin(),
     ],
   },
   parts.minifyJS({
@@ -221,6 +235,7 @@ const developmentConfig = merge([
       filename: `${paths.js}/[name].js`,
     },
   },
+  process.env.IS_DEV_SERVER === 'true' ? parts.devServer() : {},
   parts.extractCSS({
     include: paths.app,
     use: [...cssPreprocessorLoader],
@@ -239,7 +254,13 @@ const developmentConfig = merge([
 ]);
 
 module.exports = (env) => {
-  process.env.NODE_ENV = env;
+  const envMap = {
+    development: 'development',
+    'dev-server': 'development',
+    production: 'production',
+  };
+  process.env.IS_DEV_SERVER = env === 'dev-server' ? 'true' : 'false';
+  process.env.NODE_ENV = envMap[env];
 
   return merge(commonConfig, env === 'production' ? productionConfig : developmentConfig);
 };
