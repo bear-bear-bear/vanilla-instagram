@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
@@ -39,8 +39,8 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
-#    - name: npm ci 모드 실행 😎
-     - run: npm ci
+    - name: npm ci 모드 실행 😎
+      run: npm ci
 
     - name: 서버 환경설정 파일 복사 💥
       run: cp .env.example .env
