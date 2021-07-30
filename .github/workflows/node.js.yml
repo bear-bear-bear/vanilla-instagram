@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 인스타그램 프로젝트 CI
+name: 인스타그램 CI
 
 on:
   push:
@@ -22,9 +22,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Node.js ${{ matrix.node-version }} 설치 👍👍
       uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
 
     - name: MariaDB 설치 💕😂
       uses: getong/mariadb-action@v1.1
@@ -38,3 +35,15 @@ jobs:
         mysql root password: 'sungsimdang12'
         mysql user: 'user'
         mysql password: 'sungsimdang'
+
+    - name: npm ci 모드 실행 😎
+      run: npm ci
+
+    - name: 서버 환경설정 파일 복사 💥
+      run: cp .env.example .env
+
+    - name: 프런트엔드 패키지 설치 🔰
+      run: npm ci
+
+    - name: 백엔드 패키지 설치 🔰
+      run: npm ci
