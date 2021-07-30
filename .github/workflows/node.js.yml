@@ -35,6 +35,9 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
+    - name: 디렉터리 구조 확인
+      run: pwd
+
     - name: npm ci 모드 실행 😎
       run: npm ci
 
