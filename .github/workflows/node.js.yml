@@ -35,10 +35,6 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
-    - name: 서버 ESLint 검사 😒
-      run: npm run lint
-      working-directory: ${{ env.SERVER }}
-
     - name: npm ci 모드 실행 😎
       run: npm ci
 
@@ -53,6 +49,11 @@ jobs:
     - name: 백엔드 패키지 설치 🔰
       run: npm ci
       working-directory: ${{ env.BACKEND }}
+
+    - name: 서버 ESLint 검사 😒
+      run: npm run lint
+      working-directory: ${{ env.SERVER }}
+
     env:
       ROOT: '/home/runner/work/vanilla-instagram/vanilla-instagram'
       CLIENT: '/home/runner/work/vanilla-instagram/vanilla-instagram/client'
