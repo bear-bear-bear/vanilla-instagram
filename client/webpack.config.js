@@ -7,34 +7,21 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const formatter = require('eslint-friendly-formatter');
 // const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 const parts = require('./webpack.parts');
-
-const lintJSOptions = {
-  emitWarning: true,
-  // Fail only on errors
-  failOnWarning: false,
-  failOnError: true,
-
-  // Toggle autofix
-  fix: true,
-  cache: true,
-
-  formatter,
-};
 
 const getPaths = ({
   sourceDir = 'app',
   buildDir = parts.BUILD_PATH,
   staticDir = '',
+  entries = 'entries',
   images = 'images',
   fonts = 'fonts',
   js = 'scripts',
   css = 'styles',
 } = {}) => {
-  const assets = { images, fonts, js, css };
+  const assets = { entries, images, fonts, js, css };
 
   return Object.keys(assets).reduce(
     (acc, assetName) => {
@@ -93,6 +80,16 @@ const commonConfig = merge([
     resolve: {
       unsafeCache: true,
       symlinks: false,
+      extensions: ['.pug', '.js', '.json', '.scss'],
+      alias: {
+        '@entries': path.resolve(paths.app, 'entries'),
+        '@fonts': path.resolve(paths.app, 'fonts'),
+        '@images': path.resolve(paths.app, 'images'),
+        '@includes': path.resolve(paths.app, 'includes'),
+        '@pages': path.resolve(paths.app, 'pages'),
+        '@scripts': path.resolve(paths.app, 'scripts'),
+        '@styles': path.resolve(paths.app, 'styles'),
+      },
     },
     entry: `${paths.app}/scripts`,
     output: {
@@ -128,7 +125,6 @@ const commonConfig = merge([
     },
   },
   parts.loadPug(),
-  parts.lintJS({ include: paths.app, options: lintJSOptions }),
   parts.loadFonts({
     include: paths.app,
     options: {
@@ -259,19 +255,17 @@ const developmentConfig = merge([
 // FIXME: 구조 변경하기 - bear
 const pageInfos = [
   {
-    pugFilename: 'index.pug',
-    entryJsFilename: 'index.js',
-    chunk: 'home',
-    pathTo: '',
+    pug: 'pages/index.pug',
+    entry: 'entries/index.js',
   },
   {
-    pugFilename: 'test.pug',
-    entryJsFilename: 'test.js',
-    chunk: 'test',
-    pathTo: 'test',
+    pug: 'pages/test.pug',
+    entry: 'entries/test.js',
   },
 ];
 const pages = parts.createPages(paths.app, pageInfos);
+
+exports = paths;
 
 module.exports = (env) => {
   const envMap = {

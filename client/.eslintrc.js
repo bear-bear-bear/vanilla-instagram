@@ -13,26 +13,25 @@ module.exports = {
     ecmaVersion: 9,
     ecmaFeatures: {
       sourceType: 'module',
-      jsx: true,
+      jsx: false,
     },
     allowImportExportEverywhere: true,
   },
+  ignorePatterns: ['node_modules/'],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'import/no-cycle': 'off',
     'no-shadow': 'warn',
     'no-param-reassign': [
       'error',
       {
         props: true,
-        ignorePropertyModificationsFor: ['acc'],
+        ignorePropertyModificationsFor: [
+          'acc', // array.prototype.reduce's frist arg
+        ],
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-unresolved': 'off', // for webpack path alias
   },
 };

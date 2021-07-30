@@ -80,21 +80,6 @@ exports.loadPug = (options) => ({
 //   ],
 // };
 
-exports.lintJS = ({ include, exclude, options }) => ({
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include,
-        exclude,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        options,
-      },
-    ],
-  },
-});
-
 const sharedCSSLoaders = [
   {
     loader: 'css-loader',
@@ -240,19 +225,17 @@ exports.minifyJS = (options) => ({
   },
 });
 
-const page = ({
-  pathTo = '',
-  template = require.resolve('html-webpack-plugin/default_index.ejs'),
-  title,
+const createPage = ({
+  filename,
   entry,
+  template = require.resolve('html-webpack-plugin/default_index.ejs'),
   chunks,
 } = {}) => ({
   entry,
   plugins: [
     new HtmlWebpackPlugin({
-      filename: `${pathTo && `${pathTo}/`}index.html`,
+      filename,
       template,
-      title,
       chunks,
     }),
   ],
@@ -260,21 +243,23 @@ const page = ({
 
 /**
  * @param {string} appPath - 작업한 파일들이 있는 디렉터리 (ex - client/app/)
- * @param {array} pageInfo - { pugFilename, entryJsFilename, chunk } object array
+ * @param {array} pageInfos - { pug, entry } object array
  */
-exports.createPages = (appPath, pageInfo) => {
-  return pageInfo.map(({ pugFilename, entryJsFilename, chunk, pathTo }) => {
-    const removeExtention = (filename) => filename.split('.').slice(0, -1);
+exports.createPages = (appPath, pageInfos) => {
+  return pageInfos.map(({ pug, entry }) => {
+    const getBasenameWithoutExtention = (_path) => path.basename(_path, path.extname(_path));
 
-    return page({
-      pathTo,
-      filename: `${removeExtention(pugFilename)}.html`,
+    const htmlFilename = `pages/${getBasenameWithoutExtention(pug)}.html`;
+    const chunkname = getBasenameWithoutExtention(entry);
+
+    return createPage({
+      filename: htmlFilename,
       entry: {
-        home: path.join(appPath, `scripts/${entryJsFilename}`),
+        common: path.join(appPath, 'entries/common.js'), // common entry
+        home: path.join(appPath, entry), // page's unique entry
       },
-      template: path.join(appPath, pugFilename),
-      // An array of chunks to include in the page
-      chunks: [chunk, 'runtime', 'vendors'],
+      template: path.join(appPath, pug),
+      chunks: [chunkname, 'runtime', 'vendors'],
     });
   });
 };
