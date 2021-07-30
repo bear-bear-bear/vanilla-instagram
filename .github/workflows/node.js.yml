@@ -50,7 +50,7 @@ jobs:
       run: npm ci
       working-directory: ${{ env.BACKEND }}
 
-      env:
-        ROOT: 'home/runner/work/vanilla-instagram/vanilla-instagram'
-        FRONTEND: 'home/runner/work/vanilla-instagram/vanilla-instagram/client'
-        SERVER: 'home/runner/work/vanilla-instagram/vanilla-instagram/server'
+    env:
+      ROOT: 'home/runner/work/vanilla-instagram/vanilla-instagram'
+      FRONTEND: 'home/runner/work/vanilla-instagram/vanilla-instagram/client'
+      SERVER: 'home/runner/work/vanilla-instagram/vanilla-instagram/server'
