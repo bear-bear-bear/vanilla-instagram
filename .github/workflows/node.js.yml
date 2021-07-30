@@ -35,12 +35,6 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
-    - name: 환경변수 정상 출력 확인
-      run: echo ${{ env }}
-
-    - name: 서버 환경변수 정상 출력 확인
-      run: echo ${{ env.SERVER }}
-
     - name: npm ci 모드 실행 😎
       run: npm ci
 
@@ -56,6 +50,6 @@ jobs:
       run: npm ci
       working-directory: ${{ env.BACKEND }}
     env:
-      ROOT: 'home/runner/work/vanilla-instagram/vanilla-instagram'
-      CLIENT: 'home/runner/work/vanilla-instagram/vanilla-instagram/client'
-      SERVER: 'home/runner/work/vanilla-instagram/vanilla-instagram/server'
+      ROOT: '/home/runner/work/vanilla-instagram/vanilla-instagram'
+      CLIENT: '/home/runner/work/vanilla-instagram/vanilla-instagram/client'
+      SERVER: '/home/runner/work/vanilla-instagram/vanilla-instagram/server'
