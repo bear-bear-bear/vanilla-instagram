@@ -21,13 +21,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Node.js ${{ matrix.node-version }} 설치 😁
+    - name: Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - uses: getong/mariadb-action@v1.1
-    - name: MariaDB 설치 및 설정 🥰
+#    - name: MariaDB 설치 및 설정 🥰
       with:
         host port: 3306
         container port: 3306
