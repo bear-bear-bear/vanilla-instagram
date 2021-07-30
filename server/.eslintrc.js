@@ -37,7 +37,7 @@ module.exports = {
       'error',
       {
         props: true,
-        ignorePropertyModificationsFor: ['acc'],
+        ignorePropertyModificationsFor: ['acc', 'ctx'],
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],

@@ -35,6 +35,10 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
+    - name: 서버 ESLint 검사 😒
+      run: npm run lint
+      working-directory: ${{ env.SERVER }}
+
     - name: npm ci 모드 실행 😎
       run: npm ci
 
