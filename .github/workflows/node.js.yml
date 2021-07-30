@@ -47,7 +47,7 @@ jobs:
       working-directory: ${{ env.CLIENT }}
 
     - name: 백엔드 패키지 설치 🔰
-      run: npm ci
+      run: npm install
       working-directory: ${{ env.BACKEND }}
 
     - name: 서버 ESLint 검사 😒
