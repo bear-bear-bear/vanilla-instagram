@@ -22,13 +22,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Node.js ${{ matrix.node-version }} 설치 ☺
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - name: maraidb
+    - name: MariaDB 설치 😀
       uses: getong/mariadb-action@v1.1
       with:
         host port: 3306
@@ -41,3 +41,22 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
+    - name: npm ci 모드 실행 😎
+      run: npm ci
+
+    - name: 서버 환경설정 파일 복사 💥
+      run: cp .env.example .env
+      working-directory: ${{ env.SERVER }}
+
+    - name: 프런트엔드 패키지 설치 🔰
+      run: npm ci
+      working-directory: ${{ env.FRONTEND }}
+
+   - name: 백엔드 패키지 설치 🔰
+     run: npm ci
+     working-directory: ${{ env.BACKEND }}
+
+    env:
+      ROOT: 'home/runner/work/vanilla-instagram'
+      FRONTEND: 'home/runner/work/vanilla-instagram/client'
+      SERVER: 'home/runner/work/vanilla-instagram/server'
