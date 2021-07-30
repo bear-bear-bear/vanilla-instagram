@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+      "target": "esnext",
+      "allowSyntheticDefaultImports": false,
+      "baseUrl": "./",
+      "paths": {
+          "@*": ["app/*"],
+      }
+  },
+  "include": ["**/*.js", "**/*.scss"],
+  "exclude": ["node_modules"]
+}
