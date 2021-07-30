@@ -63,6 +63,7 @@ const paths = getPaths({
   sourceDir: 'app',
   buildDir: parts.BUILD_PATH,
 });
+exports.paths = paths;
 
 const lintStylesOptions = {
   context: path.resolve(__dirname, `${paths.app}/styles`),
@@ -91,7 +92,9 @@ const commonConfig = merge([
         '@styles': path.resolve(paths.app, 'styles'),
       },
     },
-    entry: `${paths.app}/scripts`,
+    entry: {
+      common: path.join(paths.app, 'entries/common.js'), // common entry
+    },
     output: {
       path: paths.build,
       publicPath: parts.PUBLIC_PATH,
@@ -233,6 +236,7 @@ const developmentConfig = merge([
       chunkFilename: `${paths.js}/[name]..js`,
       filename: `${paths.js}/[name].js`,
     },
+    devtool: 'inline-source-map',
   },
   process.env.IS_DEV_SERVER === 'true' ? parts.devServer() : {},
   parts.extractCSS({
@@ -255,8 +259,8 @@ const developmentConfig = merge([
 // FIXME: 구조 변경하기 - bear
 const pageInfos = [
   {
-    pug: 'pages/index.pug',
-    entry: 'entries/index.js',
+    pug: 'pages/home.pug',
+    entry: 'entries/home.js',
   },
   {
     pug: 'pages/test.pug',
@@ -264,8 +268,6 @@ const pageInfos = [
   },
 ];
 const pages = parts.createPages(paths.app, pageInfos);
-
-exports = paths;
 
 module.exports = (env) => {
   const envMap = {

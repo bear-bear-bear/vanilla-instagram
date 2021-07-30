@@ -7,7 +7,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 
-const PUBLIC_PATH = '/';
+const { paths } = require('./webpack.config');
+
+const PUBLIC_PATH = '../';
 const BUILD_PATH = '../server/src/public';
 
 exports.PUBLIC_PATH = PUBLIC_PATH;
@@ -19,6 +21,8 @@ exports.devServer = ({ host } = {}) => ({
       ignored: /node_modules/,
     },
     publicPath: PUBLIC_PATH,
+    contentBase: paths.app,
+
     // Enable history API fallback so HTML5 History API based
     // routing works. Good for complex setups.
     historyApiFallback: true,
@@ -250,16 +254,17 @@ exports.createPages = (appPath, pageInfos) => {
     const getBasenameWithoutExtention = (_path) => path.basename(_path, path.extname(_path));
 
     const htmlFilename = `pages/${getBasenameWithoutExtention(pug)}.html`;
-    const chunkname = getBasenameWithoutExtention(entry);
+    const pageUniqueChunkname = getBasenameWithoutExtention(entry);
+
+    console.log({ htmlFilename, pageUniqueChunkname });
 
     return createPage({
       filename: htmlFilename,
       entry: {
-        common: path.join(appPath, 'entries/common.js'), // common entry
-        home: path.join(appPath, entry), // page's unique entry
+        [pageUniqueChunkname]: path.join(appPath, entry), // page's unique entry
       },
       template: path.join(appPath, pug),
-      chunks: [chunkname, 'runtime', 'vendors'],
+      chunks: [pageUniqueChunkname, 'common', 'runtime', 'vendors'],
     });
   });
 };
