@@ -35,9 +35,6 @@ jobs:
         mysql user: 'user'
         mysql password: 'sungsimdang'
 
-    - name: 디렉터리 구조 확인
-      run: pwd
-
     - name: npm ci 모드 실행 😎
       run: npm ci
 
@@ -54,6 +51,6 @@ jobs:
       working-directory: ${{ env.BACKEND }}
 
       env:
-        ROOT: 'home/runner/work/vanilla-instagram'
-        FRONTEND: 'home/runner/work/vanilla-instagram/client'
-        SERVER: 'home/runner/work/vanilla-instagram/server'
+        ROOT: 'home/runner/work/vanilla-instagram/vanilla-instagram'
+        FRONTEND: 'home/runner/work/vanilla-instagram/vanilla-instagram/client'
+        SERVER: 'home/runner/work/vanilla-instagram/vanilla-instagram/server'
