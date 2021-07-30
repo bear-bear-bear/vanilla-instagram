@@ -21,12 +21,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Node.js ${{ matrix.node-version }} 설치 😁
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - uses: getong/mariadb-action@v1.1
+    - name: MariaDB 설치 및 설정 🥰
       with:
         host port: 3306
         container port: 3306
@@ -37,5 +38,5 @@ jobs:
         mysql root password: 'sungsimdang12'
         mysql user: 'user'
         mysql password: 'sungsimdang'
-    - run: npm ci
-
+    - name: npm ci 모드 실행 😎
+      run: npm ci
