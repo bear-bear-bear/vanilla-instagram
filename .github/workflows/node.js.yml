@@ -39,7 +39,7 @@ jobs:
       run: npm ci
 
     - name: 서버 환경설정 파일 복사 💥
-      run: cp .env.example .env
+      run: pwd && cp .env.example .env
       working-directory: ${{ env.SERVER }}
 
     - name: 프런트엔드 패키지 설치 🔰
