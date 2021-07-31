@@ -24,7 +24,13 @@ module.exports = {
     browser: false,
     node: true,
   },
-  ignorePatterns: ['node_modules', 'dist', 'public', '*\\.test.[jt]s', '*\\.config\\.[jt]s'],
+  ignorePatterns: [
+    'node_modules/',
+    'src/public/', // client's webpack build
+    '**/dist/', // typescript build
+    '**/*\\.test.[jt]s', // test files
+    '**/*\\.config\\.[jt]s', // config files
+  ],
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-console': 'warn',
@@ -32,14 +38,17 @@ module.exports = {
     'no-shadow': 'off', // 아래 @typescript-eslint/no-shadow 과의 충돌을 피하기 위해 off 처리
     '@typescript-eslint/no-shadow': ['error'],
     'no-use-before-define': ['error', { functions: true, classes: true }],
-    'import/no-unresolved': 'error',
     'no-param-reassign': [
       'error',
       {
         props: true,
-        ignorePropertyModificationsFor: ['acc', 'ctx'],
+        ignorePropertyModificationsFor: [
+          'acc', // array.prototype.reduce's frist arg
+          'ctx', // koa.js's first arg
+        ],
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-unresolved': 'error',
   },
 };

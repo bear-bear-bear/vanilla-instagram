@@ -19,6 +19,7 @@ exports.devServer = ({ host } = {}) => ({
       ignored: /node_modules/,
     },
     publicPath: PUBLIC_PATH,
+
     // Enable history API fallback so HTML5 History API based
     // routing works. Good for complex setups.
     historyApiFallback: true,
@@ -80,29 +81,18 @@ exports.loadPug = (options) => ({
 //   ],
 // };
 
-exports.lintJS = ({ include, exclude, options }) => ({
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include,
-        exclude,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        options,
-      },
-    ],
-  },
-});
-
 const sharedCSSLoaders = [
   {
     loader: 'css-loader',
     options: {
       localIdentName: '[hash:base64:5]',
+      url: true,
     },
   },
 ];
+
+// const cssPreprocessorLoader = { loader: 'fast-sass-loader' };
+const cssPreprocessorLoader = [{ loader: 'sass-loader' }];
 
 exports.purifyCSS = (options) => ({
   plugins: [new PurifyCSSPlugin(options)],
@@ -119,7 +109,7 @@ exports.minifyCSS = ({ options }) => ({
   },
 });
 
-exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
+exports.extractCSS = ({ include, exclude, options, isDevServer = false } = {}) => ({
   module: {
     rules: [
       {
@@ -128,11 +118,16 @@ exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
         include,
         exclude,
 
-        use: [MiniCssExtractPlugin.loader, ...sharedCSSLoaders, ...use],
+        use: [
+          // style-loader is for CSS HMR in webpack-dev-server
+          isDevServer ? 'style-loader' : MiniCssExtractPlugin.loader,
+          ...sharedCSSLoaders,
+          ...cssPreprocessorLoader,
+        ],
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin(options)],
+  plugins: isDevServer ? [] : [new MiniCssExtractPlugin(options)],
 });
 
 exports.loadImages = ({ include, exclude, options } = {}) => ({
@@ -240,19 +235,17 @@ exports.minifyJS = (options) => ({
   },
 });
 
-const page = ({
-  pathTo = '',
-  template = require.resolve('html-webpack-plugin/default_index.ejs'),
-  title,
+const createPage = ({
+  filename,
   entry,
+  template = require.resolve('html-webpack-plugin/default_index.ejs'),
   chunks,
 } = {}) => ({
   entry,
   plugins: [
     new HtmlWebpackPlugin({
-      filename: `${pathTo && `${pathTo}/`}index.html`,
+      filename,
       template,
-      title,
       chunks,
     }),
   ],
@@ -260,21 +253,24 @@ const page = ({
 
 /**
  * @param {string} appPath - 작업한 파일들이 있는 디렉터리 (ex - client/app/)
- * @param {array} pageInfo - { pugFilename, entryJsFilename, chunk } object array
+ * @param {array} pageInfos - { pug, entry } object array
  */
-exports.createPages = (appPath, pageInfo) => {
-  return pageInfo.map(({ pugFilename, entryJsFilename, chunk, pathTo }) => {
-    const removeExtention = (filename) => filename.split('.').slice(0, -1);
+exports.createPages = (appPath, pageInfos) => {
+  return pageInfos.map(({ pug, entry }) => {
+    const getBasenameWithoutExtention = (_path) => path.basename(_path, path.extname(_path));
 
-    return page({
-      pathTo,
-      filename: `${removeExtention(pugFilename)}.html`,
+    const htmlFilename = `${getBasenameWithoutExtention(pug)}.html`;
+    const pageUniqueChunkname = getBasenameWithoutExtention(entry);
+
+    console.log({ htmlFilename, pageUniqueChunkname });
+
+    return createPage({
+      filename: htmlFilename,
       entry: {
-        home: path.join(appPath, `scripts/${entryJsFilename}`),
+        [pageUniqueChunkname]: path.join(appPath, entry), // page's unique entry
       },
-      template: path.join(appPath, pugFilename),
-      // An array of chunks to include in the page
-      chunks: [chunk, 'runtime', 'vendors'],
+      template: path.join(appPath, pug),
+      chunks: [pageUniqueChunkname, 'common', 'runtime', 'vendors'],
     });
   });
 };
