@@ -27,41 +27,43 @@ app.use(serve(STATIC_DIR));
   3. koa 서버에서 빌드 디렉터리의 변경을 감지하여 브라우저에 신호 보냄 (SSE)
   4. 해당 신호를 client/app/entries/common.js 에서 해당 신호를 받아 브라우저 리로딩  (리로딩하는 이유 - 서버에 데이터 재요청을 보내게 되어 변경된 데이터가 적용될 수 있게 함)
  */
-app.use(async (ctx, next) => {
-  if (ctx.path !== '/sse') {
-    await next();
-    return;
-  }
-
-  ctx.request.socket.setTimeout(0);
-  ctx.req.socket.setNoDelay(true);
-  ctx.req.socket.setKeepAlive(true);
-
-  ctx.set({
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    Connection: 'keep-alive',
-  });
-
-  const stream = new PassThrough();
-
-  ctx.status = 200;
-  ctx.body = stream;
-
-  const toSSEStream = (str: string) => `data: ${str}\n\n`;
-
-  // fs.watch의 이중실행 이슈를 방지하기 위한 쓰로틀링
-  let watching: ReturnType<typeof setTimeout>;
-  fs.watch(STATIC_DIR, undefined, (event) => {
-    if (watching) {
-      clearTimeout(watching);
+if (process.env.NODE_ENV !== 'production') {
+  app.use(async (ctx, next) => {
+    if (ctx.path !== '/sse') {
+      await next();
+      return;
     }
-    watching = setTimeout(() => {
-      stream.write(toSSEStream(event)); // 번들 파일 변경시 브라우저로 SSE
-      clearTimeout(watching);
-    }, 200);
+
+    ctx.request.socket.setTimeout(0);
+    ctx.req.socket.setNoDelay(true);
+    ctx.req.socket.setKeepAlive(true);
+
+    ctx.set({
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      Connection: 'keep-alive',
+    });
+
+    const stream = new PassThrough();
+
+    ctx.status = 200;
+    ctx.body = stream;
+
+    const toSSEStream = (str: string) => `data: ${str}\n\n`;
+
+    // fs.watch의 이중실행 이슈를 방지하기 위한 쓰로틀링
+    let watching: ReturnType<typeof setTimeout>;
+    fs.watch(STATIC_DIR, undefined, (event) => {
+      if (watching) {
+        clearTimeout(watching);
+      }
+      watching = setTimeout(() => {
+        stream.write(toSSEStream(event)); // 번들 파일 변경시 브라우저로 SSE
+        clearTimeout(watching);
+      }, 200);
+    });
   });
-});
+}
 
 /**
  * @desc default error handler (내부 코드 수정 및 분할 예정)
