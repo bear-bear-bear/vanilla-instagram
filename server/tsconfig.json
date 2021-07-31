@@ -5,8 +5,8 @@
     target ES5의 기본 값: dom, es5, scripthost
     target ES6의 기본 값: dom, dom.iterable, es6, scripthost
     */
-    "target": "es2017", /* 컴파일 후 생성될 파일의 ECMAScript 대상 버전 지정: 'ES3'(기본값), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021' 또는 'ESNEXT'. */
-    "module": "ESNext", /* 컴파일 후 생성될 파일이 사용하는 모듈 버전 지정: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020' 또는 'ESNext'. */
+    "target": "ES5", /* 컴파일 후 생성될 파일의 ECMAScript 대상 버전 지정: 'ES3'(기본값), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021' 또는 'ESNEXT'. */
+    "module": "commonjs", /* 컴파일 후 생성될 파일이 사용하는 모듈 버전 지정: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020' 또는 'ESNext'. */
     "lib": [
       "es5",
       "DOM",
