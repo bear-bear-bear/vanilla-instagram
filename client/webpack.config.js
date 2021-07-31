@@ -7,9 +7,17 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-// const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 const parts = require('./webpack.parts');
+const pageInfos = require('./page.config');
+
+const pageNameMap = pageInfos.reduce((acc, { pug: pugPath }) => {
+  const pageName = path.basename(pugPath, path.extname(pugPath));
+  const htmlPath = `/${pageName}.html`;
+
+  acc[pageName] = htmlPath;
+  return acc;
+}, {});
 
 const getPaths = ({
   sourceDir = 'app',
@@ -72,9 +80,6 @@ const lintStylesOptions = {
   // fix: true,
 };
 
-// const cssPreprocessorLoader = { loader: 'fast-sass-loader' };
-const cssPreprocessorLoader = [{ loader: 'sass-loader' }];
-
 const commonConfig = merge([
   {
     context: paths.app,
@@ -127,7 +132,9 @@ const commonConfig = merge([
       noParse: /\.min\.js/,
     },
   },
-  parts.loadPug(),
+  parts.loadPug({
+    data: pageNameMap,
+  }),
   parts.loadFonts({
     include: paths.app,
     options: {
@@ -136,7 +143,7 @@ const commonConfig = merge([
   }),
 ]);
 
-const productionConfig = merge([
+const productionBuildConfig = merge([
   {
     mode: 'production',
     optimization: {
@@ -154,11 +161,7 @@ const productionConfig = merge([
       maxEntrypointSize: 100000, // in bytes
       maxAssetSize: 450000, // in bytes
     },
-    plugins: [
-      // new StatsWriterPlugin({ fields: null, filename: '../stats.json' }),
-      new webpack.HashedModuleIdsPlugin(),
-      new CleanPlugin(),
-    ],
+    plugins: [new webpack.HashedModuleIdsPlugin(), new CleanPlugin()],
   },
   parts.minifyJS({
     terserOptions: {
@@ -202,7 +205,6 @@ const productionConfig = merge([
   }),
   parts.extractCSS({
     include: paths.app,
-    use: [...cssPreprocessorLoader],
     options: {
       filename: `${paths.css}/[name].[contenthash:8].css`,
       chunkFilename: `${paths.css}/[id].[contenthash:8].css`,
@@ -229,19 +231,17 @@ const productionConfig = merge([
   parts.optimizeImages(),
 ]);
 
-const developmentConfig = merge([
+const developmentBuildConfig = merge([
   {
     mode: 'development',
     output: {
-      chunkFilename: `${paths.js}/[name]..js`,
+      chunkFilename: `${paths.js}/[name].js`,
       filename: `${paths.js}/[name].js`,
     },
     devtool: 'inline-source-map',
   },
-  process.env.IS_DEV_SERVER === 'true' ? parts.devServer() : {},
   parts.extractCSS({
     include: paths.app,
-    use: [...cssPreprocessorLoader],
     options: {
       filename: `${paths.css}/[name].css`,
       chunkFilename: `${paths.css}/[id].css`,
@@ -256,27 +256,43 @@ const developmentConfig = merge([
   parts.loadJS({ include: paths.app }),
 ]);
 
-// FIXME: 구조 변경하기 - bear
-const pageInfos = [
+const devServerConfig = merge([
   {
-    pug: 'pages/home.pug',
-    entry: 'entries/home.js',
+    mode: 'development',
+    output: {
+      chunkFilename: `${paths.js}/[name].js`,
+      filename: `${paths.js}/[name].js`,
+    },
+    devtool: 'inline-source-map',
   },
-  {
-    pug: 'pages/test.pug',
-    entry: 'entries/test.js',
-  },
-];
+  parts.devServer(),
+  parts.extractCSS({
+    include: paths.app,
+    options: {
+      filename: `${paths.css}/[name].css`,
+      chunkFilename: `${paths.css}/[id].css`,
+    },
+    isDevServer: true,
+  }),
+  parts.loadImages({
+    include: paths.app,
+    options: {
+      name: `${paths.images}/[name].[ext]`,
+    },
+  }),
+  parts.loadJS({ include: paths.app }),
+]);
+
 const pages = parts.createPages(paths.app, pageInfos);
 
 module.exports = (env) => {
-  const envMap = {
-    development: 'development',
-    'dev-server': 'development',
-    production: 'production',
-  };
-  process.env.IS_DEV_SERVER = env === 'dev-server' ? 'true' : 'false';
-  process.env.NODE_ENV = envMap[env];
+  process.env.NODE_ENV = env === 'production' ? 'production' : 'development'; // env === 'devServer' 일때 NODE_ENV는 'development'로 매핑
 
-  return merge(commonConfig, env === 'production' ? productionConfig : developmentConfig, ...pages);
+  const configMap = {
+    devServer: devServerConfig,
+    development: developmentBuildConfig,
+    production: productionBuildConfig,
+  };
+
+  return merge(commonConfig, configMap[env], ...pages);
 };

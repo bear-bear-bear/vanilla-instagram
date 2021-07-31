@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prepare": "cd ../ && npx husky install client/.husky",
-    "analyze": "webpack-bundle-analyzer ./stats.json",
-    "build:dev": "webpack --env development --progress",
     "build:prod": "webpack --env production --progress",
-    "start": "npm run start:without-server",
-    "start:without-server": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env dev-server\""
+    "build:dev": "webpack --env development --progress --watch",
+    "devServer": "webpack-dev-server --open --hot --env devServer"
   },
   "lint-staged": {
     "**/*.js": [

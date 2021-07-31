@@ -7,9 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 
-const { paths } = require('./webpack.config');
-
-const PUBLIC_PATH = '../';
+const PUBLIC_PATH = '/';
 const BUILD_PATH = '../server/src/public';
 
 exports.PUBLIC_PATH = PUBLIC_PATH;
@@ -21,7 +19,6 @@ exports.devServer = ({ host } = {}) => ({
       ignored: /node_modules/,
     },
     publicPath: PUBLIC_PATH,
-    contentBase: paths.app,
 
     // Enable history API fallback so HTML5 History API based
     // routing works. Good for complex setups.
@@ -89,9 +86,13 @@ const sharedCSSLoaders = [
     loader: 'css-loader',
     options: {
       localIdentName: '[hash:base64:5]',
+      url: true,
     },
   },
 ];
+
+// const cssPreprocessorLoader = { loader: 'fast-sass-loader' };
+const cssPreprocessorLoader = [{ loader: 'sass-loader' }];
 
 exports.purifyCSS = (options) => ({
   plugins: [new PurifyCSSPlugin(options)],
@@ -108,7 +109,7 @@ exports.minifyCSS = ({ options }) => ({
   },
 });
 
-exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
+exports.extractCSS = ({ include, exclude, options, isDevServer = false } = {}) => ({
   module: {
     rules: [
       {
@@ -117,11 +118,16 @@ exports.extractCSS = ({ include, exclude, options, use = [] } = {}) => ({
         include,
         exclude,
 
-        use: [MiniCssExtractPlugin.loader, ...sharedCSSLoaders, ...use],
+        use: [
+          // style-loader is for CSS HMR in webpack-dev-server
+          isDevServer ? 'style-loader' : MiniCssExtractPlugin.loader,
+          ...sharedCSSLoaders,
+          ...cssPreprocessorLoader,
+        ],
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin(options)],
+  plugins: isDevServer ? [] : [new MiniCssExtractPlugin(options)],
 });
 
 exports.loadImages = ({ include, exclude, options } = {}) => ({
@@ -253,7 +259,7 @@ exports.createPages = (appPath, pageInfos) => {
   return pageInfos.map(({ pug, entry }) => {
     const getBasenameWithoutExtention = (_path) => path.basename(_path, path.extname(_path));
 
-    const htmlFilename = `pages/${getBasenameWithoutExtention(pug)}.html`;
+    const htmlFilename = `${getBasenameWithoutExtention(pug)}.html`;
     const pageUniqueChunkname = getBasenameWithoutExtention(entry);
 
     console.log({ htmlFilename, pageUniqueChunkname });
