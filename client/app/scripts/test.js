@@ -1,4 +1,1 @@
-import '../styles/main.scss';
-import '../styles/test.scss';
-
-alert('test');
+console.log('Current entry is test');
