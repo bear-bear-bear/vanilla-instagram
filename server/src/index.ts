@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import { PassThrough } from 'stream';
 
 import Koa from 'koa';
 import Router from 'koa-router';
@@ -44,6 +43,7 @@ if (process.env.NODE_ENV !== 'production') {
       Connection: 'keep-alive',
     });
 
+    const { PassThrough } = await import('stream');
     const stream = new PassThrough();
 
     ctx.status = 200;
