@@ -7,34 +7,29 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const formatter = require('eslint-friendly-formatter');
-// const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 const parts = require('./webpack.parts');
+const pageInfos = require('./page.config');
 
-const lintJSOptions = {
-  emitWarning: true,
-  // Fail only on errors
-  failOnWarning: false,
-  failOnError: true,
+const pageNameMap = pageInfos.reduce((acc, { pug: pugPath }) => {
+  const pageName = path.basename(pugPath, path.extname(pugPath));
+  const htmlPath = `/${pageName}.html`;
 
-  // Toggle autofix
-  fix: true,
-  cache: true,
-
-  formatter,
-};
+  acc[pageName] = htmlPath;
+  return acc;
+}, {});
 
 const getPaths = ({
   sourceDir = 'app',
   buildDir = parts.BUILD_PATH,
   staticDir = '',
+  entries = 'entries',
   images = 'images',
   fonts = 'fonts',
   js = 'scripts',
   css = 'styles',
 } = {}) => {
-  const assets = { images, fonts, js, css };
+  const assets = { entries, images, fonts, js, css };
 
   return Object.keys(assets).reduce(
     (acc, assetName) => {
@@ -76,6 +71,7 @@ const paths = getPaths({
   sourceDir: 'app',
   buildDir: parts.BUILD_PATH,
 });
+exports.paths = paths;
 
 const lintStylesOptions = {
   context: path.resolve(__dirname, `${paths.app}/styles`),
@@ -84,17 +80,26 @@ const lintStylesOptions = {
   // fix: true,
 };
 
-// const cssPreprocessorLoader = { loader: 'fast-sass-loader' };
-const cssPreprocessorLoader = [{ loader: 'sass-loader' }];
-
 const commonConfig = merge([
   {
     context: paths.app,
     resolve: {
       unsafeCache: true,
       symlinks: false,
+      extensions: ['.pug', '.js', '.json', '.scss'],
+      alias: {
+        '@entries': path.resolve(paths.app, 'entries'),
+        '@fonts': path.resolve(paths.app, 'fonts'),
+        '@images': path.resolve(paths.app, 'images'),
+        '@includes': path.resolve(paths.app, 'includes'),
+        '@pages': path.resolve(paths.app, 'pages'),
+        '@scripts': path.resolve(paths.app, 'scripts'),
+        '@styles': path.resolve(paths.app, 'styles'),
+      },
     },
-    entry: `${paths.app}/scripts`,
+    entry: {
+      common: path.join(paths.app, 'entries/common.js'), // common entry
+    },
     output: {
       path: paths.build,
       publicPath: parts.PUBLIC_PATH,
@@ -127,8 +132,9 @@ const commonConfig = merge([
       noParse: /\.min\.js/,
     },
   },
-  parts.loadPug(),
-  parts.lintJS({ include: paths.app, options: lintJSOptions }),
+  parts.loadPug({
+    data: pageNameMap,
+  }),
   parts.loadFonts({
     include: paths.app,
     options: {
@@ -137,7 +143,7 @@ const commonConfig = merge([
   }),
 ]);
 
-const productionConfig = merge([
+const productionBuildConfig = merge([
   {
     mode: 'production',
     optimization: {
@@ -155,11 +161,7 @@ const productionConfig = merge([
       maxEntrypointSize: 100000, // in bytes
       maxAssetSize: 450000, // in bytes
     },
-    plugins: [
-      // new StatsWriterPlugin({ fields: null, filename: '../stats.json' }),
-      new webpack.HashedModuleIdsPlugin(),
-      new CleanPlugin(),
-    ],
+    plugins: [new webpack.HashedModuleIdsPlugin(), new CleanPlugin()],
   },
   parts.minifyJS({
     terserOptions: {
@@ -203,7 +205,6 @@ const productionConfig = merge([
   }),
   parts.extractCSS({
     include: paths.app,
-    use: [...cssPreprocessorLoader],
     options: {
       filename: `${paths.css}/[name].[contenthash:8].css`,
       chunkFilename: `${paths.css}/[id].[contenthash:8].css`,
@@ -230,18 +231,17 @@ const productionConfig = merge([
   parts.optimizeImages(),
 ]);
 
-const developmentConfig = merge([
+const developmentBuildConfig = merge([
   {
     mode: 'development',
     output: {
-      chunkFilename: `${paths.js}/[name]..js`,
+      chunkFilename: `${paths.js}/[name].js`,
       filename: `${paths.js}/[name].js`,
     },
+    devtool: 'inline-source-map',
   },
-  process.env.IS_DEV_SERVER === 'true' ? parts.devServer() : {},
   parts.extractCSS({
     include: paths.app,
-    use: [...cssPreprocessorLoader],
     options: {
       filename: `${paths.css}/[name].css`,
       chunkFilename: `${paths.css}/[id].css`,
@@ -256,31 +256,43 @@ const developmentConfig = merge([
   parts.loadJS({ include: paths.app }),
 ]);
 
-// FIXME: 구조 변경하기 - bear
-const pageInfos = [
+const devServerConfig = merge([
   {
-    pugFilename: 'index.pug',
-    entryJsFilename: 'index.js',
-    chunk: 'home',
-    pathTo: '',
+    mode: 'development',
+    output: {
+      chunkFilename: `${paths.js}/[name].js`,
+      filename: `${paths.js}/[name].js`,
+    },
+    devtool: 'inline-source-map',
   },
-  {
-    pugFilename: 'test.pug',
-    entryJsFilename: 'test.js',
-    chunk: 'test',
-    pathTo: 'test',
-  },
-];
+  parts.devServer(),
+  parts.extractCSS({
+    include: paths.app,
+    options: {
+      filename: `${paths.css}/[name].css`,
+      chunkFilename: `${paths.css}/[id].css`,
+    },
+    isDevServer: true,
+  }),
+  parts.loadImages({
+    include: paths.app,
+    options: {
+      name: `${paths.images}/[name].[ext]`,
+    },
+  }),
+  parts.loadJS({ include: paths.app }),
+]);
+
 const pages = parts.createPages(paths.app, pageInfos);
 
 module.exports = (env) => {
-  const envMap = {
-    development: 'development',
-    'dev-server': 'development',
-    production: 'production',
-  };
-  process.env.IS_DEV_SERVER = env === 'dev-server' ? 'true' : 'false';
-  process.env.NODE_ENV = envMap[env];
+  process.env.NODE_ENV = env === 'production' ? 'production' : 'development'; // env === 'devServer' 일때 NODE_ENV는 'development'로 매핑
 
-  return merge(commonConfig, env === 'production' ? productionConfig : developmentConfig, ...pages);
+  const configMap = {
+    devServer: devServerConfig,
+    development: developmentBuildConfig,
+    production: productionBuildConfig,
+  };
+
+  return merge(commonConfig, configMap[env], ...pages);
 };
