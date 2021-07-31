@@ -4,11 +4,12 @@
   "description": "Typescript, koa.js",
   "main": "src/index.ts",
   "scripts": {
-    "build": "cross-env swc --config-file .swcrc.json src/ -w -d dist &",
+    "prepare": "cd ../ && npx husky install server/.husky",
     "test": "jest",
+    "build": "cross-env swc --config-file .swcrc.json src/ -w -d dist &",
     "prod": "cross-env NODE_ENV=production node src",
     "dev": "ts-node-dev src/index.ts",
-    "prepare": "cd ../ && npx husky install server/.husky"
+    "lint": "eslint ."
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [
