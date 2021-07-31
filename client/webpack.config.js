@@ -88,6 +88,7 @@ const commonConfig = merge([
       symlinks: false,
       extensions: ['.pug', '.js', '.json', '.scss'],
       alias: {
+        '@': path.resolve(paths.app),
         '@entries': path.resolve(paths.app, 'entries'),
         '@fonts': path.resolve(paths.app, 'fonts'),
         '@images': path.resolve(paths.app, 'images'),
@@ -235,22 +236,22 @@ const developmentBuildConfig = merge([
   {
     mode: 'development',
     output: {
-      chunkFilename: `${paths.js}/[name].js`,
-      filename: `${paths.js}/[name].js`,
+      chunkFilename: `${paths.js}/[name].[chunkhash:8].js`,
+      filename: `${paths.js}/[name].[chunkhash:8].js`,
     },
     devtool: 'inline-source-map',
   },
   parts.extractCSS({
     include: paths.app,
     options: {
-      filename: `${paths.css}/[name].css`,
-      chunkFilename: `${paths.css}/[id].css`,
+      filename: `${paths.css}/[name].[contenthash:8].css`,
+      chunkFilename: `${paths.css}/[id].[contenthash:8].css`,
     },
   }),
   parts.loadImages({
     include: paths.app,
     options: {
-      name: `${paths.images}/[name].[ext]`,
+      name: `${paths.images}/[name].[hash:8].[ext]`,
     },
   }),
   parts.loadJS({ include: paths.app }),
