@@ -6,9 +6,8 @@
   "scripts": {
     "prepare": "cd ../ && npx husky install server/.husky",
     "test": "jest",
-    "build": "cross-env swc --config-file .swcrc.json src/ -w -d dist &",
-    "prod": "cross-env NODE_ENV=production node src",
-    "dev": "ts-node-dev src/index.ts",
+    "build": "cross-env NODE_ENV=production swc --config-file .swcrc.json src/ -d dist &",
+    "start": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint ."
   },
   "lint-staged": {
