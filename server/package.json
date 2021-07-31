@@ -9,7 +9,7 @@
     "prod": "cross-env NODE_ENV=production node src",
     "dev": "ts-node-dev src/index.ts",
     "prepare": "cd ../ && npx husky install server/.husky",
-    "lint": "eslint . --fix"
+    "lint": "eslint ."
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [

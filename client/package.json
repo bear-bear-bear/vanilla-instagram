@@ -7,7 +7,8 @@
     "prepare": "cd ../ && npx husky install client/.husky",
     "build:prod": "webpack --env production --progress",
     "build:dev": "webpack --env development --progress --watch",
-    "devServer": "webpack-dev-server --open --hot --env devServer"
+    "devServer": "webpack-dev-server --open --hot --env devServer",
+    "lint": "eslint ."
   },
   "lint-staged": {
     "**/*.js": [

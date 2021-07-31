@@ -18,9 +18,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Node.js ${{ matrix.node-version }} 설치 👍👍
+      - name: Node.js ${{ matrix.node-version }} 설치 👍
         uses: actions/setup-node@v2
 
+      ########################################################
+      ## -- 백엔드 --
+      ########################################################
       - name: MariaDB 설치 💕😂
         uses: getong/mariadb-action@v1.1
         with:
@@ -34,24 +37,32 @@ jobs:
           mysql user: 'user'
           mysql password: 'sungsimdang'
 
-      - name: npm ci 모드 실행 😎
-        run: npm ci
-
-      - name: 서버 환경설정 파일 복사 💥
+      - name: 백엔드 환경설정 파일 복사 💥
         run: pwd && cp .env.example .env
         working-directory: ${{ env.SERVER }}
-
-      - name: 프런트엔드 패키지 설치 🔰
-        run: npm ci
-        working-directory: ${{ env.CLIENT }}
 
       - name: 백엔드 패키지 설치 🔰
         run: npm ci
         working-directory: ${{ env.SERVER }}
 
-      - name: 서버 ESLint 검사 😒
+      - name: 백엔드 ESLint 검사 😒
         run: npm run lint
         working-directory: ${{ env.SERVER }}
+
+      ########################################################
+      ## -- 프런트엔드 --
+      ########################################################
+      # - name: 프런트엔드 환경설정 파일 복사 💥
+      #   run: pwd && cp .env.example .env
+      #   working-directory: ${{ env.CLIENT }}
+
+      - name: 프런트엔드 패키지 설치 🔰
+        run: npm ci
+        working-directory: ${{ env.CLIENT }}
+
+      - name: 프런트엔드 ESLint 검사 😒
+        run: npm run lint
+        working-directory: ${{ env.CLIENT }}
 
     env:
       ROOT: '/home/runner/work/vanilla-instagram/vanilla-instagram'
