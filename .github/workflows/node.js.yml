@@ -49,6 +49,10 @@ jobs:
         run: npm run lint
         working-directory: ${{ env.SERVER }}
 
+      - name: 백엔드 jest
+        run: npm run test
+        working-directory: ${{ env.SERVER }}
+
       ########################################################
       ## -- 프런트엔드 --
       ########################################################
