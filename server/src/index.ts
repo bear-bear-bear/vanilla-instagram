@@ -94,5 +94,5 @@ app.use((ctx) => {
 
 const PORT = process.env.PORT || 8001;
 app.listen(PORT, () => {
-  console.log(`Server is listening to ✨ http://localhost:${PORT} ✨`);
+  console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
