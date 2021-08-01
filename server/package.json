@@ -6,9 +6,8 @@
   "scripts": {
     "prepare": "cd ../ && npx husky install server/.husky",
     "test": "jest",
-    "build": "cross-env swc --config-file .swcrc.json src/ -w -d dist &",
-    "prod": "cross-env NODE_ENV=production node src",
-    "dev": "ts-node-dev src/index.ts",
+    "build": "cross-env NODE_ENV=production swc --config-file .swcrc.json src/ -d dist &",
+    "start": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint ."
   },
   "lint-staged": {
@@ -25,6 +24,7 @@
     "dotenv": "^10.0.0",
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
     "regenerator-runtime": "^0.13.9",
     "snowpack": "^3.8.3"
   },
@@ -36,6 +36,7 @@
     "@types/jest": "^26.0.24",
     "@types/koa": "^2.13.4",
     "@types/koa-router": "^7.4.4",
+    "@types/koa-static": "^4.0.2",
     "@types/node": "^16.4.3",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
