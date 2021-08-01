@@ -92,7 +92,7 @@ const commonConfig = merge([
         '@entries': path.resolve(paths.app, 'entries'),
         '@fonts': path.resolve(paths.app, 'fonts'),
         '@images': path.resolve(paths.app, 'images'),
-        '@includes': path.resolve(paths.app, 'includes'),
+        '@templates': path.resolve(paths.app, 'templates'),
         '@pages': path.resolve(paths.app, 'pages'),
         '@scripts': path.resolve(paths.app, 'scripts'),
         '@styles': path.resolve(paths.app, 'styles'),
@@ -135,6 +135,8 @@ const commonConfig = merge([
   },
   parts.loadPug({
     data: pageNameMap,
+    basedir: paths.app,
+    root: paths.app,
   }),
   parts.loadFonts({
     include: paths.app,
