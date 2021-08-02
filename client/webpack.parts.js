@@ -253,24 +253,20 @@ const createPage = ({
 
 /**
  * @param {string} appPath - 작업한 파일들이 있는 디렉터리 (ex - client/app/)
- * @param {array} pageInfos - { pug, entry } object array
+ * @param {array} pageNames - page name array
  */
-exports.createPages = (appPath, pageInfos) => {
-  return pageInfos.map(({ pug, entry }) => {
-    const getBasenameWithoutExtention = (_path) => path.basename(_path, path.extname(_path));
-
-    const htmlFilename = `${getBasenameWithoutExtention(pug)}.html`;
-    const pageUniqueChunkname = getBasenameWithoutExtention(entry);
-
-    console.log({ htmlFilename, pageUniqueChunkname });
+exports.createPages = (appPath, pageNames) => {
+  return pageNames.map((page) => {
+    const pageSourceDir = path.join(appPath, 'pages', page);
+    const htmlFileName = page !== 'home' ? page : 'index';
 
     return createPage({
-      filename: htmlFilename,
+      filename: `${htmlFileName}.html`,
       entry: {
-        [pageUniqueChunkname]: path.join(appPath, entry), // page's unique entry
+        [page]: path.join(pageSourceDir, 'entry.js'), // page's unique entry
       },
-      template: path.join(appPath, pug),
-      chunks: [pageUniqueChunkname, 'common', 'runtime', 'vendors'],
+      template: path.join(pageSourceDir, `${page}.pug`),
+      chunks: [page, 'common', 'runtime', 'vendors'],
     });
   });
 };
