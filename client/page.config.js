@@ -1,12 +1,3 @@
-const pageInfos = [
-  {
-    pug: 'pages/index.pug',
-    entry: 'entries/index.js',
-  },
-  {
-    pug: 'pages/test.pug',
-    entry: 'entries/test.js',
-  },
-];
+const pageNames = ['home', 'test'];
 
-module.exports = pageInfos;
+module.exports = pageNames;

@@ -12,12 +12,13 @@
   padding: 2rem;
   border-radius: 10px;
   background-color: #eee;
-  box-shadow: 0.4em 0.4em 0.3em #01163C,
-                    0.4em 0.4em 0.5em #01163C,
-                    0.4em 0 0.3em #01163C,
-                    -0.4em -0.4em 0.3em #EB9B98,
-                    -0.4em -0.4em 0.5em #EB9B98,
-                    -0.4em 0 0.3em #EB9B98;
+  box-shadow:
+    0.4em 0.4em 0.3em #01163c,
+    0.4em 0.4em 0.5em #01163c,
+    0.4em 0 0.3em #01163c,
+    -0.4em -0.4em 0.3em #eb9b98,
+    -0.4em -0.4em 0.5em #eb9b98,
+    -0.4em 0 0.3em #eb9b98;
 
   &__logo {
     position: absolute;
@@ -44,7 +45,7 @@
   }
 
   & > a {
-    color: #01163C;
+    color: #01163c;
     font-size: 1.1rem;
     font-weight: 700;
     margin-top: 0.66rem;

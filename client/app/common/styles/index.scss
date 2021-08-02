@@ -1,7 +1,8 @@
-@import '@styles/common/defaults/_fonts';
-@import '@styles/common/templates/example-container';
+@import './defaults/_fonts';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

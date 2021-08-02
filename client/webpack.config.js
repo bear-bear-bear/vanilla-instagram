@@ -9,13 +9,13 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 
 const parts = require('./webpack.parts');
-const pageInfos = require('./page.config');
+const pageNames = require('./page.config');
 
-const pageNameMap = pageInfos.reduce((acc, { pug: pugPath }) => {
-  const pageName = path.basename(pugPath, path.extname(pugPath));
+const pageNameToHtmlPathMap = pageNames.reduce((acc, page) => {
+  const pageName = page !== 'home' ? page : 'index';
   const htmlPath = `/${pageName}.html`;
 
-  acc[pageName] = htmlPath;
+  acc[page] = htmlPath;
   return acc;
 }, {});
 
@@ -23,13 +23,12 @@ const getPaths = ({
   sourceDir = 'app',
   buildDir = parts.BUILD_PATH,
   staticDir = '',
-  entries = 'entries',
   images = 'images',
   fonts = 'fonts',
   js = 'scripts',
   css = 'styles',
 } = {}) => {
-  const assets = { entries, images, fonts, js, css };
+  const assets = { images, fonts, js, css };
 
   return Object.keys(assets).reduce(
     (acc, assetName) => {
@@ -74,10 +73,11 @@ const paths = getPaths({
 exports.paths = paths;
 
 const lintStylesOptions = {
-  context: path.resolve(__dirname, `${paths.app}/styles`),
+  context: paths.app,
+  files: ['common/styles/**/*.scss', 'pages/**/*.scss', 'templates/**/*.scss'],
   syntax: 'scss',
-  emitErrors: false,
-  // fix: true,
+  fix: true,
+  emitError: false,
 };
 
 const commonConfig = merge([
@@ -89,17 +89,18 @@ const commonConfig = merge([
       extensions: ['.pug', '.js', '.json', '.scss'],
       alias: {
         '@': path.resolve(paths.app),
-        '@entries': path.resolve(paths.app, 'entries'),
-        '@fonts': path.resolve(paths.app, 'fonts'),
-        '@images': path.resolve(paths.app, 'images'),
+        '@assets': path.resolve(paths.app, 'assets'),
+        '@fonts': path.resolve(paths.app, 'assets', 'fonts'),
+        '@images': path.resolve(paths.app, 'assets', 'images'),
         '@templates': path.resolve(paths.app, 'templates'),
         '@pages': path.resolve(paths.app, 'pages'),
-        '@scripts': path.resolve(paths.app, 'scripts'),
-        '@styles': path.resolve(paths.app, 'styles'),
+        '@common': path.resolve(paths.app, 'common'),
+        '@lib': path.resolve(paths.app, 'lib'),
       },
     },
     entry: {
-      common: path.join(paths.app, 'entries/common.js'), // common entry
+      // 각 페이지별 entry는 parts.createPages의 html-webpack-plugin 에서 지정되며, 추후 webpack-merge에 의해 병합됩니다.
+      common: path.join(paths.app, 'common', 'entry.js'), // common entry
     },
     output: {
       path: paths.build,
@@ -134,7 +135,7 @@ const commonConfig = merge([
     },
   },
   parts.loadPug({
-    data: pageNameMap,
+    data: pageNameToHtmlPathMap,
     basedir: paths.app,
     root: paths.app,
   }),
@@ -286,7 +287,7 @@ const devServerConfig = merge([
   parts.loadJS({ include: paths.app }),
 ]);
 
-const pages = parts.createPages(paths.app, pageInfos);
+const pages = parts.createPages(paths.app, pageNames);
 
 module.exports = (env) => {
   process.env.NODE_ENV = env === 'production' ? 'production' : 'development'; // env === 'devServer' 일때 NODE_ENV는 'development'로 매핑

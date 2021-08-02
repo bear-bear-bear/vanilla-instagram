@@ -2,11 +2,18 @@
   "compilerOptions": {
       "target": "esnext",
       "allowSyntheticDefaultImports": false,
-      "baseUrl": "./",
+      "baseUrl": "app",
       "paths": {
-          "@*": ["app/*"],
+        "@/*": ["./*"],
+        "@assets/*": ["assets/*"],
+        "@fonts/*": ["assets/fonts/*"],
+        "@images/*": ["assets/images/*"],
+        "@templates/*": ["templates/*"],
+        "@pages/*": ["pages/*"],
+        "@common/*": ["common/*"],
+        "@lib/*": ["lib/*"],
       }
   },
-  "include": ["**/*.js", "**/*.scss"],
+  "include": ["./**/*.*"],
   "exclude": ["node_modules"]
 }
