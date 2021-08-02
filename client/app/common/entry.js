@@ -5,10 +5,10 @@ import './styles/index.scss';
  * @desc dev-server 에서 pug 변경에 대한 HMR 지원
  */
 const watchPugs = async () => {
-  const { default: pageInfos } = await import('@/../page.config');
+  const { default: pageNames } = await import('@/../page.config');
 
-  pageInfos.forEach(({ pug: pugPath }) => {
-    import(`@/${pugPath}`);
+  pageNames.forEach((pageName) => {
+    import(`@pages/${pageName}/${pageName}.pug`);
   });
 };
 

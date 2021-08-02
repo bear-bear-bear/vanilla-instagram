@@ -1,53 +1,54 @@
 .example-container {
-    width: 28rem;
-    min-height: 15rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 28rem;
+  min-height: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #eee;
+  box-shadow:
+    0.4em 0.4em 0.3em #01163c,
+    0.4em 0.4em 0.5em #01163c,
+    0.4em 0 0.3em #01163c,
+    -0.4em -0.4em 0.3em #eb9b98,
+    -0.4em -0.4em 0.5em #eb9b98,
+    -0.4em 0 0.3em #eb9b98;
+
+  &__logo {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2rem;
-    border-radius: 10px;
-    background-color: #eee;
-    box-shadow: 0.4em 0.4em 0.3em #01163C,
-                        0.4em 0.4em 0.5em #01163C,
-                        0.4em 0 0.3em #01163C,
-                        -0.4em -0.4em 0.3em #EB9B98,
-                        -0.4em -0.4em 0.5em #EB9B98,
-                        -0.4em 0 0.3em #EB9B98;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+  }
 
-    &__logo {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        width: 2rem;
-    }
+  &__devide-line {
+    width: 100%;
+    height: 1px;
+    margin-top: 0.66rem;
+    margin-bottom: 0.66rem;
+    background-color: #ccc;
+  }
 
-    &__devide-line {
-        width: 100%;
-        height: 1px;
-        margin-top: 0.66rem;
-        margin-bottom: 0.66rem;
-        background-color: #ccc;
-    }
+  & > h1 {
+    font-size: 1.4rem;
+    word-break: keep-all;
+  }
 
-    & > h1 {
-        font-size: 1.4rem;
-        word-break: keep-all;
-    }
+  & > p {
+    line-height: 1.6;
+  }
 
-    & > p {
-        line-height: 1.6;
-    }
-
-    & > a {
-        color: #01163C;
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-top: 0.66rem;
-        align-self: flex-end;
-    }
+  & > a {
+    color: #01163c;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.66rem;
+    align-self: flex-end;
+  }
 }
