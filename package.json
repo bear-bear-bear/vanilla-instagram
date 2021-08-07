@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/bear-bear-bear/vanilla-instagram#readme",
   "devDependencies": {
-    "husky": "^4.2.3"
+    "husky": "^4.2.3",
+    "sass-resources-loader": "^2.2.4"
   }
 }
