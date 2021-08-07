@@ -92,7 +92,18 @@ const sharedCSSLoaders = [
 ];
 
 // const cssPreprocessorLoader = { loader: 'fast-sass-loader' };
-const cssPreprocessorLoader = [{ loader: 'sass-loader' }];
+const cssPreprocessorLoader = [
+  { loader: 'sass-loader' },
+  {
+    loader: 'sass-resources-loader',
+    options: {
+      resources: [
+        path.resolve(__dirname, 'app', 'common', 'styles', 'defaults', '__mixins__.scss'),
+        path.resolve(__dirname, 'app', 'common', 'styles', 'defaults', '__variables__.scss'),
+      ],
+    },
+  },
+];
 
 exports.purifyCSS = (options) => ({
   plugins: [new PurifyCSSPlugin(options)],
