@@ -36,11 +36,14 @@
   }
 
   & > h1 {
+    @include mixin-test-color;
+
     font-size: 1.4rem;
     word-break: keep-all;
   }
 
   & > p {
+    color: $variable-test-color;
     line-height: 1.6;
   }
 
