@@ -248,7 +248,7 @@ const createPage = ({
       template,
       chunks,
       inject: 'head',
-      scriptLoading: 'defer'
+      scriptLoading: 'defer',
     }),
   ],
 });
