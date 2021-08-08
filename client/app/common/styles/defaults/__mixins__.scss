@@ -8,8 +8,8 @@
   width: 21.75rem;
 }
 
-@mixin footer-para-design {
+@mixin footer-text-design {
   font-size: 12px;
-  color: $footer-para-color;
+  color: $footer-text-color--gray;
   text-decoration: none;
 }
