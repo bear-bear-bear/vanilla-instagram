@@ -16,14 +16,19 @@
     margin-top: 1.5rem;
   }
 
-  & p,
-  a {
-    @include footer-text-design;
+  & p {
+    font-size: 12px;
+    color: $footer-text-color--gray;
   }
-}
 
-.copyright {
-  display: flex;
-  height: 2.063rem;
-  align-items: center;
+  & a {
+    text-decoration: none;
+    color: $footer-text-color--gray;
+  }
+
+  &--copyright {
+    display: flex;
+    height: 2.063rem;
+    align-items: center;
+  }
 }

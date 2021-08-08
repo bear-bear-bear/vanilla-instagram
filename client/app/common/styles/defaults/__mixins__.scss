@@ -3,13 +3,3 @@
 @mixin mixin-test-color {
   color: red;
 }
-
-@mixin auth-wrap-width {
-  width: 21.75rem;
-}
-
-@mixin footer-text-design {
-  font-size: 12px;
-  color: $footer-text-color--gray;
-  text-decoration: none;
-}
