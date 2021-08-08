@@ -1,0 +1,29 @@
+.legal-navs {
+  display: flex;
+  width: 72.375rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  bottom: 0;
+  margin-top: 6rem;
+}
+
+.footer--navigator {
+  display: flex;
+  width: 37.5rem;
+  height: 1.313rem;
+  justify-content: space-evenly;
+  align-items: baseline;
+  margin-top: 1.5rem;
+
+  &-contents {
+    font-size: 12px;
+  }
+}
+
+.copyright {
+  display: flex;
+  font-size: 12px;
+  height: 2.063rem;
+  align-items: center;
+}
