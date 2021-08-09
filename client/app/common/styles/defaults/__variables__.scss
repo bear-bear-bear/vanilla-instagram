@@ -1,3 +1,18 @@
 // 어디서든 변수를 사용할 수 있도록 웹팩 빌드 과정에서 모든 scss 파일 상단에 추가되어 파싱됩니다.
 // ㄴ 빌드과정에 직접 포함되기 때문에 ../index 에 포함하지 않아도 됩니다.
 $variable-test-color: blue;
+
+$color--white: #FFFFFF;
+$color--black: #000000;
+$color--gray-0: #CACACA;
+$color--gray-1: #ACACAC;
+$color--gray-3: #868686;
+$color--gray-4: #454545;
+$color--gray-5: #252525;
+
+$color--light-teal: #98DDCA;
+$color--light-green: #D5ECC2;
+$color--light-orange: #FFD3B4;
+$color--light-red: #FFAAA7;
+
+$auth-wrap-width: 21.75rem;
