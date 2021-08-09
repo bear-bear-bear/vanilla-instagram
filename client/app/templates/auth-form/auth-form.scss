@@ -1,0 +1,47 @@
+body {
+  background-image: none;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.document-container {
+  display: flex;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form-wrap {
+  width: $auth-wrap-width;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid $color--gray-0;
+  padding: 1.33rem 0;
+  margin-bottom: 0.66rem;
+
+  & svg {
+    width: 10.938rem;
+    height: 3.188rem;
+  }
+}
+
+.separated-contents-wrap {
+  width: $auth-wrap-width;
+  height: 3.813rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $color--gray-0;
+
+  & p {
+    font-size: 14px;
+    text-align: center;
+  }
+}
