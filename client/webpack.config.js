@@ -70,7 +70,6 @@ const paths = getPaths({
   sourceDir: 'app',
   buildDir: parts.BUILD_PATH,
 });
-exports.paths = paths;
 
 const lintStylesOptions = {
   context: paths.app,
