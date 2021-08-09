@@ -36,6 +36,8 @@
   }
 
   & > h1 {
+    @include test;
+
     font-size: 1.4rem;
     word-break: keep-all;
   }
