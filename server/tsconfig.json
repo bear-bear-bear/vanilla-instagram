@@ -77,7 +77,8 @@
   },
   "include": [
     "src/**/*",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "test/**/*"
   ],  
   "exclude": [  
     "node_modules"  
