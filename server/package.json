@@ -7,7 +7,7 @@
     "prepare": "cd ../ && npx husky install server/.husky",
     "test": "jest",
     "build": "cross-env NODE_ENV=production swc --config-file .swcrc.json src/ -d dist &",
-    "start": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
+    "start": "cross-env NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
     "lint": "eslint ."
   },
   "lint-staged": {
@@ -31,8 +31,6 @@
   "devDependencies": {
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-typescript": "^7.14.5",
-    "@swc/cli": "^0.1.46",
-    "@swc/core": "^1.2.66",
     "@types/jest": "^26.0.24",
     "@types/koa": "^2.13.4",
     "@types/koa-router": "^7.4.4",
@@ -52,11 +50,12 @@
     "husky": "^4.2.3",
     "jest": "^27.0.6",
     "lint-staged": "^10.0.0-1",
+    "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "supertest": "^6.1.4",
     "ts-jest": "^27.0.4",
-    "ts-node": "^10.1.0",
-    "ts-node-dev": "^1.1.8",
+    "ts-node": "^10.2.0",
+    "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
   "author": "",
