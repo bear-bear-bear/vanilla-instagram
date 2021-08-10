@@ -33,6 +33,22 @@
   padding: 0.33rem 0.66rem;
 }
 
-.legal-policy {
-  margin-top: 3rem;
+@media screen and (max-width: 1200px) {
+  .iphone-viral__img {
+    display: none;
+  }
+
+  .legal-policy {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0 1.33rem 0;
+
+    & .navigator__list {
+      width: $auth-wrap-width;
+
+      & a {
+        font-size: 4px;
+      }
+    }
+  }
 }
