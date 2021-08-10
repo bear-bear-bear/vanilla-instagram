@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "prepare": "cd ../ && npx husky install server/.husky",
-    "test": "jest --detectOpenHandles --findRelatedTests",
+    "test": "jest --detectOpenHandles",
     "build": "cross-env NODE_ENV=production swc --config-file .swcrc.json src/ -d dist &",
     "start": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint ."
