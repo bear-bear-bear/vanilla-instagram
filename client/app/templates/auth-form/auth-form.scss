@@ -5,19 +5,19 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  & .document-container {
+    display: flex;
+  }
+
+  & main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
-.document-container {
-  display: flex;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.login-form-wrap {
+.auth-form__wrap {
   width: $auth-wrap-width;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ body {
   }
 }
 
-.separated-contents-wrap {
+.separated-contents__wrap {
   width: $auth-wrap-width;
   height: 3.813rem;
   display: flex;

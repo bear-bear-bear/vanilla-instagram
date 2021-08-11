@@ -7,17 +7,17 @@ block aside-img
 	include /templates/login-iphone/login-iphone
 
 block form-area
-	form.login-form(action= "")
+	form.auth__form(action= "")
 		label
-			input.login-input(required= "true" type= "text" placeholder= "이메일")
+			input.auth__form__input(required= "true" type= "text" placeholder= "이메일")
 		label
-			input.login-input(required= "true" type= "password" placeholder= "비밀번호")
+			input.auth__form__input(required= "true" type= "password" placeholder= "비밀번호")
 		button(type= "submit") 로그인
 		p 
 			a(href= lostPassword) 비밀번호를 잊으셨습니까 휴먼?
 
 block separated-contents
-	p 계정이 없으신가요?
+	p 계정이 없으신가요? 
 		a(href= signUp) 가입하기
 
 block footer
