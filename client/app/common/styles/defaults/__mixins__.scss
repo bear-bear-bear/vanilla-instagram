@@ -3,3 +3,52 @@
 @mixin test {
   color: $color--gray-3;
 }
+
+@mixin device-adaptive($device) {
+  @if $device == laptop {
+    @media (max-width: 1280px) and (min-width: 1024px) {
+      .document-container {
+        height: 30rem;
+        width: 44.82rem;
+      }
+
+      .login-form-wrap {
+        height: 18rem;
+      }
+
+      .separated-contents-wrap {
+        height: 3.33rem;
+      }
+    }
+  }
+
+  @else if $device == tablet {
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .iphone-viral__img {
+        display: none;
+      }
+    }
+  }
+
+  @else if $device == mobile {
+    @media (max-width: 768px) {
+      .iphone-viral__img {
+        display: none;
+      }
+
+      .legal-policy {
+        position: absolute;
+        bottom: 0;
+        margin: 0 0 1.33rem 0;
+
+        & .navigator__list {
+          width: $auth-wrap-width;
+
+          & a {
+            font-size: 4px;
+          }
+        }
+      }
+    }
+  }
+}
