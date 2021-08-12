@@ -1,5 +1,5 @@
-import './test';
-import './test.scss';
+import './test-test';
+import './test-test.scss';
 
 // template dependencies
 import '@templates/example-container/_entry';
