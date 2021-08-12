@@ -9,33 +9,40 @@ body {
 
   & .document-container {
     display: flex;
+    flex: 1;
+    justify-content: center;
     height: 39rem;
+    width: 100%;
   }
 
   & main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 21.75rem;
   }
 }
 
 .auth-form__wrap {
-  width: $auth-wrap-width;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid $color--gray-0;
-  padding: 1.33rem 0;
+  padding: 1.33rem 2rem;
   margin-bottom: 0.66rem;
 
-  & svg {
-    width: 10.938rem;
-    height: 3.188rem;
+  & .doge__wrap {
+    height: 3rem;
+    width: 100%;
+
+    & svg {
+      height: 100%;
+      width: 100%;
+    }
   }
 }
 
 .separated-contents__wrap {
-  width: $auth-wrap-width;
   height: 3.813rem;
   display: flex;
   align-items: center;

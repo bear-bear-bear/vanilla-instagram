@@ -1,19 +1,24 @@
 @include auth-form-design;
 
 .auth__form p {
-  font-size: 13px;
+  font-size: 0.9rem;
   text-align: center;
   padding: 1rem 0;
+}
+
+.legal-policy {
+  width: 37.5rem;
+  margin-bottom: 2.5rem;
 }
 
 @include device-adaptive(laptop) {
   .document-container {
     height: 30rem;
     width: 44.82rem;
-  }
 
-  .login-form__wrap {
-    height: 18rem;
+    & main {
+      width: 18rem;
+    }
   }
 
   .separated-contents__wrap {
@@ -21,14 +26,11 @@
   }
 
   .iphone-viral__img {
-    width: 100%;
-  }
+    width: 25rem;
 
-  .img-cycle__wrap {
-    margin-top: 6.25rem;
-    margin-left: 10.85rem;
-    height: 27rem;
-    width: 15.33rem;
+    & .img-cycle__wrap {
+      margin-top: 64.5%;
+    }
   }
 }
 
@@ -39,21 +41,12 @@
 }
 
 @include device-adaptive(mobile) {
-  .iphone-viral__img {
-    display: none;
-  }
-
   .legal-policy {
-    position: absolute;
-    bottom: 0;
-    margin: 0 0 1.33rem 0;
+    width: 25rem;
+    margin-bottom: 1.33rem;
 
-    & .navigator__list {
-      width: $auth-wrap-width;
-
-      & a {
-        font-size: 4px;
-      }
+    & .navigator__list a {
+      font-size: 0.25rem;
     }
   }
 }
