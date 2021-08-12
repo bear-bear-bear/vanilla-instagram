@@ -6,7 +6,7 @@
   padding: 1rem 0;
 }
 
-.footer {
+footer {
   width: 37.5rem;
   margin-bottom: 2.5rem;
 }
@@ -41,7 +41,7 @@
 }
 
 @include device-adaptive(mobile) {
-  .footer {
+  footer {
     width: 22rem;
     margin-bottom: 1.33rem;
 

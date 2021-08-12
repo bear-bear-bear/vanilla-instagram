@@ -1,4 +1,4 @@
-.footer {
+footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,7 @@
     color: $color--gray-2;
   }
 
-  &__copyright {
+  & .footer__copyright {
     display: flex;
     height: 2.063rem;
     align-items: center;
