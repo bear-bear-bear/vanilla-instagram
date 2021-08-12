@@ -6,6 +6,54 @@
   padding: 1rem 0;
 }
 
-.legal-policy {
-  margin-top: 3rem;
+@include device-adaptive(laptop) {
+  .document-container {
+    height: 30rem;
+    width: 44.82rem;
+  }
+
+  .login-form__wrap {
+    height: 18rem;
+  }
+
+  .separated-contents__wrap {
+    height: 3.33rem;
+  }
+
+  .iphone-viral__img {
+    width: 100%;
+  }
+
+  .img-cycle__wrap {
+    margin-top: 6.25rem;
+    margin-left: 10.85rem;
+    height: 27rem;
+    width: 15.33rem;
+  }
+}
+
+@include device-adaptive(tablet) {
+  .iphone-viral__img {
+    display: none;
+  }
+}
+
+@include device-adaptive(mobile) {
+  .iphone-viral__img {
+    display: none;
+  }
+
+  .legal-policy {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0 1.33rem 0;
+
+    & .navigator__list {
+      width: $auth-wrap-width;
+
+      & a {
+        font-size: 4px;
+      }
+    }
+  }
 }
