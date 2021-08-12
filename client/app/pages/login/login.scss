@@ -34,6 +34,43 @@
   padding: 0.33rem 0.66rem;
 }
 
-@include device-adaptive(laptop);
-@include device-adaptive(tablet);
-@include device-adaptive(mobile);
+@include device-adaptive(laptop) {
+  .document-container {
+    height: 30rem;
+    width: 44.82rem;
+  }
+
+  .login-form-wrap {
+    height: 18rem;
+  }
+
+  .separated-contents-wrap {
+    height: 3.33rem;
+  }
+}
+
+@include device-adaptive(tablet) {
+  .iphone-viral__img {
+    display: none;
+  }
+}
+
+@include device-adaptive(mobile) {
+  .iphone-viral__img {
+    display: none;
+  }
+
+  .legal-policy {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0 1.33rem 0;
+
+    & .navigator__list {
+      width: $auth-wrap-width;
+
+      & a {
+        font-size: 4px;
+      }
+    }
+  }
+}
