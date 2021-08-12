@@ -1,3 +1,8 @@
+.document-container {
+  margin-bottom: 4rem;
+  height: 39rem;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -7,7 +12,7 @@
     border: none;
     border-radius: 4px;
     height: 1.875rem;
-    // background-color: $color--sky-blue;
+    background-color: $color--sky-blue;
     color: $color--white;
     font-size: 14px;
     margin: 0.5rem 0;
@@ -29,6 +34,43 @@
   padding: 0.33rem 0.66rem;
 }
 
-.legal-policy {
-  margin-top: 3rem;
+@include device-adaptive(laptop) {
+  .document-container {
+    height: 30rem;
+    width: 44.82rem;
+  }
+
+  .login-form-wrap {
+    height: 18rem;
+  }
+
+  .separated-contents-wrap {
+    height: 3.33rem;
+  }
+}
+
+@include device-adaptive(tablet) {
+  .iphone-viral__img {
+    display: none;
+  }
+}
+
+@include device-adaptive(mobile) {
+  .iphone-viral__img {
+    display: none;
+  }
+
+  .legal-policy {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0 1.33rem 0;
+
+    & .navigator__list {
+      width: $auth-wrap-width;
+
+      & a {
+        font-size: 4px;
+      }
+    }
+  }
 }

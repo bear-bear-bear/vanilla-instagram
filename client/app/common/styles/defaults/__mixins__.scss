@@ -3,3 +3,23 @@
 @mixin test {
   color: $color--gray-3;
 }
+
+@mixin device-adaptive($device) {
+  @if $device == laptop {
+    @media (max-width: 1280px) and (min-width: 1024px) {
+      @content;
+    }
+  }
+
+  @else if $device == tablet {
+    @media (max-width: 1024px) and (min-width: 768px) {
+      @content;
+    }
+  }
+
+  @else if $device == mobile {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+}
