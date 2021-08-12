@@ -5,12 +5,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 
   & .document-container {
     display: flex;
     flex: 1;
     justify-content: center;
+    align-items: center;
     height: 39rem;
     width: 100%;
   }
@@ -52,5 +52,26 @@ body {
   & p {
     font-size: 14px;
     text-align: center;
+  }
+}
+
+@include device-adaptive(mobile) {
+  body {
+    & main {
+      width: 100%;
+    }
+  }
+
+  .auth-form__wrap {
+    border: none;
+  }
+
+  .separated-contents__wrap {
+    border: none;
+  }
+
+  footer {
+    width: 22rem;
+    margin-bottom: 1.33rem;
   }
 }
