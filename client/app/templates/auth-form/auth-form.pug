@@ -8,10 +8,11 @@ html(lang="ko")
   body 
     section.document-container
       block aside-img
-      main.form-container
-        div.login-form-wrap
-          include /assets/images/doge.svg
+      main
+        div.auth-form__wrap
+          header.doge__wrap
+            include /assets/images/doge.svg
           block form-area
-        div.separated-contents-wrap
+        div.separated-contents__wrap
           block separated-contents
     block footer
