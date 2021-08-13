@@ -1,1 +1,13 @@
-$tem :123;
+@include auth-form-design;
+
+.auth-form__wrap label {
+  text-align: center;
+}
+
+.auth__form__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.separated-contents__wrap {
+  display: none;
+}
