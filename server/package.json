@@ -25,7 +25,9 @@
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
+    "mariadb": "^2.5.4",
     "regenerator-runtime": "^0.13.9",
+    "sequelize": "^6.6.5",
     "snowpack": "^3.8.3"
   },
   "devDependencies": {
@@ -36,6 +38,7 @@
     "@types/koa-router": "^7.4.4",
     "@types/koa-static": "^4.0.2",
     "@types/node": "^16.4.3",
+    "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "babel-jest": "^27.0.6",
