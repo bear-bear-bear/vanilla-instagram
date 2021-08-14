@@ -11,7 +11,7 @@ describe('서버 실행 환경 테스트', () => {
     await request(runningStatusApp)
       .head('/')
       .then(({ statusCode }) => {
-        expect(statusCode).toBe(200);
+        expect(statusCode).toBe(404);
       });
   });
 })
