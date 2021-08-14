@@ -28,6 +28,7 @@
   "include": [
     "src/**/*",
     "test/**/*",
+    "jest.config.ts",
     ".eslintrc.js",
   ],  
   "exclude": [  
