@@ -92,7 +92,7 @@ app.use((ctx) => {
   ctx.body = 'ok';
 });
 
-const PORT = process.env.PORT || 8234;
+const PORT = process.env.PORT || 8001;
 const runningStatusApp = app.listen(PORT, () => {
   console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
