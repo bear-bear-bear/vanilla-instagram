@@ -9,9 +9,8 @@ describe('서버 실행 환경 테스트', () => {
     server = app.listen(8080);
   });
 
-  afterAll(async (done) => {
+  afterAll(async () => {
     server.close();
-    await done();
   });
 
   it('서버가 정상적으로 작동한다.', async () => {
