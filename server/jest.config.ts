@@ -8,7 +8,7 @@ const config: Config.InitialOptions = {
   errorOnDeprecated: true,
   moduleFileExtensions: ['ts', 'js', 'json'],
   rootDir: '.',
-  moduleNameMapper: { '@(.*)$': '<rootDir>/src/$1' },
+  moduleNameMapper: { '^@root/(.*)$': '<rootDir>/src/$1' },
   transform: {
     '\\.ts$': 'ts-jest',
     '\\.js$': 'babel-jest',
@@ -17,10 +17,3 @@ const config: Config.InitialOptions = {
 };
 
 export default config;
-
-// Or async function
-// export default async (): Promise<Config.InitialOptions> => {
-//   return {
-//     verbose: true,
-//   };
-// };
