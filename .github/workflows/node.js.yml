@@ -49,7 +49,7 @@ jobs:
         run: npm run lint
         working-directory: ${{ env.SERVER }}
 
-      - name: 백엔드 jest
+      - name: 백엔드 테스트
         run: npm run test
         working-directory: ${{ env.SERVER }}
 
