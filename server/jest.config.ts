@@ -7,8 +7,8 @@ const config: Config.InitialOptions = {
   },
   errorOnDeprecated: true,
   moduleFileExtensions: ['ts', 'js', 'json'],
-  rootDir: './',
-  moduleNameMapper: { '@/(.*)$': '<rootDir>/src/$1' },
+  rootDir: '.',
+  moduleNameMapper: { '@(.*)$': '<rootDir>/src/$1' },
   transform: {
     '\\.ts$': 'ts-jest',
     '\\.js$': 'babel-jest',
