@@ -1,41 +1,35 @@
 {
   "compilerOptions": {
-    /* Basic Options */
-    "target": "ES5", /* 컴파일 후 생성될 파일의 ECMAScript 대상 버전 지정: 'ES3'(기본값), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021' 또는 'ESNEXT'. */
-    "module": "commonjs", /* 컴파일 후 생성될 파일이 사용하는 모듈 버전 지정: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020' 또는 'ESNext'. */
+    "target": "ES5",
+    "module": "commonjs",
     "lib": [
       "es5",
       "DOM",
       "DOM.Iterable"
-    ], /* 컴파일에 포함될 라이브러리 파일을 지정합니다. */
-    "allowJs": true, /* 자바스크립트 파일이 컴파일되도록 허용합니다. */
-    "checkJs": true, /* .js 파일의 오류를 보고합니다. */
-    "outDir": "./dist", /* 출력 구조를 디렉터리로 리디렉션합니다. */
-    "downlevelIteration": true, /* 'ES5' 또는 'ES3'을 대상으로 할 때 'for-of', Spread 및 Destructuring에서 이터러블을 완벽하게 지원합니다. */
-
-    /* 엄격한 유형 검사 옵션 */
-    "strict": true, /* 모든 엄격한 유형 검사 옵션을 활성화합니다. */
-    "noImplicitAny": true, /* 묵시적 'any' 유형이 있는 표현식 및 선언에서 오류 발생. */
-
-/* 추가 검사 */
-    "noFallthroughCasesInSwitch": true, /* switch 문의 폴스루 케이스에 대한 오류를 보고합니다. */
-
-    /* 모듈 해상도 옵션 */
-    "moduleResolution": "node", /* 모듈 확인 전략을 지정합니다. 'node'(Node.js) 또는 'classic'(TypeScript 1.6 이전). */
-    "baseUrl": "./", /* 절대적이지 않은 모듈 이름을 확인하기 위한 기본 디렉토리. */
+    ],
+    "allowJs": true,
+    "checkJs": true,
+    "outDir": "./dist",
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
     "paths": {
-      "@root/*": ["./src/*"]
+      "app": ["."],
+      "app/*": ["./*"]
     },
-    "esModuleInterop": true, /* 모든 가져오기에 대한 네임스페이스 개체 생성을 통해 CommonJS와 ES 모듈 간의 방출 상호 운용성을 활성화합니다. 'allowSyntheticDefaultImports'를 의미합니다. */
-
-    /* 고급 옵션 */
-    "skipLibCheck": true, /* 선언 파일의 유형 검사를 건너뜁니다. */
-    "forceConsistentCasingInFileNames": true /* 동일한 파일에 대해 대소문자가 일치하지 않는 참조를 허용하지 않습니다 */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "src/**/*",
+    "test/**/*",
     ".eslintrc.js",
-    "test/**/*"
+    "**/*.ts"
   ],  
   "exclude": [  
     "node_modules"  

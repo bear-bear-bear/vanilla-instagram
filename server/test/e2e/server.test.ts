@@ -1,5 +1,6 @@
 import request from 'supertest';
-import runningStatusApp from '@root/index';
+
+import runningStatusApp from 'app';
 
 describe('서버 실행 환경 테스트', () => {
   beforeAll(() => {

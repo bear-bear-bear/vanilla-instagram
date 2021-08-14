@@ -1,6 +1,10 @@
+import { pathsToModuleNameMapper } from 'ts-jest/utils';
 import type { Config } from '@jest/types';
 
+import { compilerOptions } from './tsconfig.json';
+
 const config: Config.InitialOptions = {
+  preset: 'ts-jest',
   displayName: {
     name: 'SERVER',
     color: 'blue',
@@ -8,7 +12,7 @@ const config: Config.InitialOptions = {
   errorOnDeprecated: true,
   moduleFileExtensions: ['ts', 'js', 'json'],
   rootDir: '.',
-  moduleNameMapper: { '^@root/(.*)$': '<rootDir>/src/$1' },
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' } ),
   transform: {
     '\\.ts$': 'ts-jest',
     '\\.js$': 'babel-jest',
