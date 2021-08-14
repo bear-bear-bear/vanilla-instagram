@@ -1,0 +1,13 @@
+@include auth-form-design;
+
+.auth__form p {
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@include device-adaptive(tablet) {
+  .iphone-viral__img {
+    display: none;
+  }
+}
