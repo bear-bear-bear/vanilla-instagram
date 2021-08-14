@@ -92,8 +92,8 @@ app.use((ctx) => {
   ctx.body = 'ok';
 });
 
-const PORT = process.env.PORT || 8001;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 8234;
+const runningStatusApp = app.listen(PORT, () => {
   console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
 
@@ -101,4 +101,4 @@ app.listen(PORT, () => {
  * @desc 테스트를 위한 서버 export
  * 테스트 방식을 변경하고 싶으시면 재작성 바람
  */
-export default app;
+export default runningStatusApp;
