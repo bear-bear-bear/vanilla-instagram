@@ -83,15 +83,6 @@ app.use(async (ctx, next) => {
   }
 });
 
-// FiXME: 모든 요청에 대해 200 코드 반환 중. 수정하기
-/**
- * @desc default success handler (내부 코드 수정 및 분할 예정)
- */
-app.use((ctx) => {
-  ctx.status = 200;
-  ctx.body = 'ok';
-});
-
 const PORT = process.env.PORT || 8001;
 const runningStatusApp = app.listen(PORT, () => {
   console.log(`🌟 http://localhost:${PORT} 🌟`);
