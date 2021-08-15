@@ -2,4 +2,4 @@ import './test-test';
 import './test-test.scss';
 
 // template dependencies
-import '@templates/example-container/_entry';
+import '@templates/container/_entry';

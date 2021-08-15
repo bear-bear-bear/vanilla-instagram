@@ -58,7 +58,6 @@ header.service-header {
     text-align: center;
     border-radius: 3px;
     border: 1px solid #dbdbdb;
-    // outline: 0;
 
     &:focus {
       outline: none;
@@ -88,7 +87,5 @@ header.service-header {
 
 .service-container {
   width: 100%;
-  border: 1px solid;
-  height: 1000vh;
   max-width: $tablet-size;
 }

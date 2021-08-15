@@ -1,12 +1,8 @@
-extends /templates/example-container/example-container
+extends /templates/container/container
 
 block page-title
-  title Home
+ title test 
 
-block h1-title
-  h1 테스트 페이지
-
-block p-content
-  p 
-    | 테스트 페이지입니다.
-  a(href= home) 홈 페이지로 이동 →
+block content
+  div.temp
+    p 컨테이너 test입니다.
