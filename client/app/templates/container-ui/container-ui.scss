@@ -1,38 +1,94 @@
-// .service-nav {
-//   display: flex;
-//   position: sticky;
-//   width: 72.375rem;
-//   flex-direction: column;
-//   justify-content: flex-end;
-//   align-items: center;
-// }
+body.service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: initial;
+  background-color: #fafafa;
+}
 
-// .service-nav__logo {
-//   width: 20rem;
-//   height: 20rem;
-// }
+header.service-header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: center;
+  width: 100%;
+  height: 3.3rem;
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
 
-// .service-nav__search input {
-//   font-size: 12px;
-// }
+  @include device-adaptive(tablet) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
 
-// .service-nav__btn {
-//   align-items: center;
-// }
+.service-nav {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: $tablet-size;
 
-// .service-nav__btn span {
-//   font-size: 12px;
-//   text-decoration: none;
-// }
+  & ul {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-// .service-nav__btn__login-btn {
-//   width: 20rem;
-//   height: 20rem;
-//   color: aqua;
-//   border-radius: 15%;
-// }
+  &__logo svg {
+    display: flex;
+    width: 6rem;
+    height: 3rem;
+  }
 
-// .service-container {
-//   width: 1280px;
-//   max-width: 100%;
-// }
+  &__search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    color: #8e8e8e;
+    width: 13rem;
+    height: 1.7rem;
+    background-color: #fafafa;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #dbdbdb;
+    // outline: 0;
+
+    &:focus {
+      outline: none;
+      text-align: start;
+      padding-left: 1.5rem;
+    }
+  }
+
+  &__btn {
+    font-size: 0.9rem;
+    padding: 0.33rem 0.66rem;
+    text-decoration: none;
+    border-radius: 4px;
+
+    &--login {
+      color: #fff;
+      background-color: #0095f6;
+    }
+
+    &--join {
+      background-color: #fff;
+      color: #0095f6;
+      margin-left: 0.9rem;
+    }
+  }
+}
+
+.service-container {
+  width: 100%;
+  border: 1px solid;
+  height: 1000vh;
+  max-width: $tablet-size;
+}

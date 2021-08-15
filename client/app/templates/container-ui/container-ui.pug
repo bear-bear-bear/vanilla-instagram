@@ -6,25 +6,23 @@ html(lang="ko")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     block page-title
 body.service
-  nav.service-nav
-    ul
-      li
-        a(href="#").service-nav__logo
-          include /assets/images/insta-logo-text.svg
-      li
-        input(
-          autocapitalize='none'
-          placeholder='🔍검색'
-          type='text'
-          value
-        ).service-nav__search
-      li
-        a.service-nav__login-btn(href='#') 로그인
-        a.service-nav__join-btn(href='#') 가입하기
+  header.service-header
+    nav.service-nav
+      ul
+        li
+          a(href="#").service-nav__logo
+            include /assets/images/insta-logo-text.svg
+        li
+          input(
+            autocapitalize='none'
+            placeholder='검색'
+            type='text'
+            value
+          ).service-nav__search
+        li
+          a.service-nav__btn.service-nav__btn--login(href='#') 로그인
+          a.service-nav__btn.service-nav__btn--join(href='#') 가입하기
   main.service-container
+    block content
 
-  block content
-
-  include /templates/legal-policy/legal-policy
-
-
+  include /templates/footer/footer
