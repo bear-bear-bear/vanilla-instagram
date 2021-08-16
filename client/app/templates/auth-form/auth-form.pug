@@ -6,13 +6,13 @@ html(lang="ko")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     block doc-title
   body 
-    section.document-container
+    section.contents__wrap
       block aside-img
       main
         div.auth-form__wrap
-          header.doge__wrap
-            include /assets/images/doge.svg
-          block form-area
+          header.insta-svg
+            include /assets/images/insta-logo-text.svg
+          block auth-form-contents
         div.separated-contents__wrap
           block separated-contents
     include /templates/footer/footer

@@ -19,10 +19,14 @@
   }
 }
 
-.auth__form p {
-  font-size: 0.9rem;
-  text-align: center;
-  padding: 1rem 0;
+.auth-form {
+  padding-top: 0.5rem;
+
+  & p {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 1rem 0;
+  }
 }
 
 @include device-adaptive(tablet) {

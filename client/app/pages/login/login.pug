@@ -7,12 +7,12 @@ block aside-img
 	aside.iphone
 		section.iphone__screen.iphone__screen--first
 
-block form-area
-	form.auth__form(action="")
+block auth-form-contents
+	form.auth-form(action="")
 		label
-			input.auth__form__input(required="true" type="text" placeholder="이메일")
+			input(required="true" type="text" placeholder="이메일")
 		label
-			input.auth__form__input(required="true" type="password" placeholder="비밀번호")
+			input(required="true" type="password" placeholder="비밀번호")
 		button(type="submit") 로그인
 		p 
 			a(href= lost_password) 비밀번호를 잊으셨습니까 휴먼?

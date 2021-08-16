@@ -6,7 +6,7 @@ body {
   justify-content: center;
   line-height: unset;
 
-  & .document-container {
+  & .contents__wrap {
     display: flex;
     flex: 1;
     justify-content: center;
@@ -30,7 +30,7 @@ body {
   border: 1px solid $color--gray-1;
   padding: 1.33rem 2rem;
 
-  & .doge__wrap {
+  & .insta-svg {
     height: 3rem;
     width: 100%;
 
