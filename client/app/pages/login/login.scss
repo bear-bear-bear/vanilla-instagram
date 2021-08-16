@@ -3,14 +3,17 @@
 .iphone {
   width: 30rem;
   height: 100%;
+  min-height: 55rem;
   background: url(~@images/iphone-viral.png) right no-repeat;
   background-size: contain;
+  display: flex;
+  align-items: center;
 
   &__screen {
-    margin-top: 46%;
+    margin-top: 0.66rem;
     margin-left: 33.5%;
-    height: 51%;
-    width: 52.3%;
+    height: 27.9rem;
+    width: 15.66rem;
 
     &--first {
       background: url(~@images/image-cycle/first.jpg) no-repeat;
