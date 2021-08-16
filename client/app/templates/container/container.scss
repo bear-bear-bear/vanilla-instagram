@@ -1,0 +1,91 @@
+body.service {
+  width: 100%;
+  height: initial;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color--gray-0;
+}
+
+header.service-header {
+  width: 100%;
+  height: 3.3rem;
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: center;
+  border-bottom: 1px solid $color--gray-1;
+  background-color: $color--white;
+
+  @include device-adaptive(tablet) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
+
+.service-nav {
+  width: 100%;
+  max-width: $tablet-size;
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  & ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo svg {
+    width: 6rem;
+    height: 3rem;
+    display: flex;
+  }
+
+  &__search {
+    width: 13rem;
+    height: 1.7rem;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    border: 1px solid $color--gray-1;
+    border-radius: 3px;
+    color: $color--gray-2;
+    background-color: $color--gray-0;
+
+    &:focus {
+      outline: none;
+      text-align: start;
+      padding-left: 1.5rem;
+    }
+  }
+
+  &__btn {
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 0.33rem 0.66rem;
+    border-radius: 4px;
+
+    &--login {
+      color: $color--white;
+      background-color: $color--blue;
+    }
+
+    &--join {
+      color: $color--blue;
+      background-color: $color--white;
+      margin-left: 0.9rem;
+    }
+  }
+}
+
+.service-container {
+  width: 100%;
+  max-width: $tablet-size;
+}

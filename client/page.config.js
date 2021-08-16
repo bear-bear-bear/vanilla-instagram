@@ -1,3 +1,3 @@
-const pageNames = ['home', 'test-test', 'login', 'sign-up', 'email-validation'];
+const pageNames = ['home', 'test-test', 'login', 'sign-up', 'email-validation', 'suggested-feed'];
 
 module.exports = pageNames;

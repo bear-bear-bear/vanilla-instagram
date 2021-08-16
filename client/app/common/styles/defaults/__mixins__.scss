@@ -1,20 +1,24 @@
 // 어디서든 mixin을 사용할 수 있도록 웹팩 빌드 과정에서 모든 scss 파일 상단에 추가되어 파싱됩니다.
 // ㄴ 빌드과정에 직접 포함되기 때문에 ../index 에 포함하지 않아도 됩니다.
+$laptap-size: 1280px;
+$tablet-size: 1024px;
+$mobile-size: 768px;
+
 @mixin device-adaptive($device) {
   @if $device == laptop {
-    @media (max-width: 1280px) {
+    @media (max-width: $laptap-size) {
       @content;
     }
   }
 
   @else if $device == tablet {
-    @media (max-width: 1024px) {
+    @media (max-width: $tablet-size) {
       @content;
     }
   }
 
   @else if $device == mobile {
-    @media (max-width: 768px) {
+    @media (max-width: $mobile-size) {
       @content;
     }
   }
