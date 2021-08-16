@@ -6,14 +6,21 @@ import Router from 'koa-router';
 import dotenv from 'dotenv';
 import serve from 'koa-static';
 
-if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: path.join(__dirname, '..', '.env.production') });
-} else {
-  dotenv.config({ path: path.join(__dirname, '..', '.env.development') });
-}
+import db from './models';
+
+dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
 
 const app = new Koa();
 const router = new Router();
+
+db.sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log('데이터베이스 연결 성공');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 const STATIC_DIR = path.join(__dirname, 'public');
 
