@@ -37,6 +37,7 @@ module.exports = {
     'import/no-cycle': 'off',
     'no-shadow': 'off', // 아래 @typescript-eslint/no-shadow 과의 충돌을 피하기 위해 off 처리
     '@typescript-eslint/no-shadow': ['error'],
+    '@typescript-eslint/lines-between-class-members': 'off',
     'no-use-before-define': ['error', { functions: true, classes: true }],
     'no-param-reassign': [
       'error',
