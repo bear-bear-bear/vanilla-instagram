@@ -1,13 +1,13 @@
 body {
-  background-image: none;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   line-height: unset;
 
-  & .document-container {
+  & .center-section {
     display: flex;
     flex: 1;
     justify-content: center;
@@ -28,10 +28,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid $color--gray-0;
+  border: 1px solid $color--gray-1;
   padding: 1.33rem 2rem;
 
-  & .doge__wrap {
+  & .insta-svg {
     height: 3rem;
     width: 100%;
 
@@ -42,19 +42,15 @@ body {
   }
 }
 
-.auth__form {
-  justify-content: center;
-}
-
 .separated-contents__wrap {
   height: 3.813rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid $color--gray-0;
+  border: 1px solid $color--gray-1;
 
   & p {
-    font-size: 14px;
+    font-size: 0.9rem;
     text-align: center;
   }
 }

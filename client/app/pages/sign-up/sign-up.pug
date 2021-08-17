@@ -1,25 +1,22 @@
-extends /templates/auth-form/auth-form
+extends /templates/auth-container/auth-container
 
 block doc-title
   title Sign Up
 
-block form-area
+block auth-form-contents
   p 친구들의 사진과 동영상을 보려면 가입하세요.
   |
-  form.auth__form(action="")
+  form.auth-form(action="")
     label
-      input.auth__form__input(required="true" type="text" placeholder="이메일 주소")
+      input(required="true" type="text" placeholder="이메일 주소")
     label
-      input.auth__form__input(required="true" type="text" placeholder="성명")
+      input(required="true" type="text" placeholder="성명")
     label
-      input.auth__form__input(required="true" type="text" placeholder="사용자 이름")
+      input(required="true" type="text" placeholder="사용자 이름")
     label
-      input.auth__form__input(required="true" type="password" placeholder="비밀번호")
+      input(required="true" type="password" placeholder="비밀번호")
     button(type="submit") 가입
 
 block separated-contents
   p 계정이 있으신가요? 
     a(href= login) 로그인
-
-block footer
-  include /templates/footer/footer

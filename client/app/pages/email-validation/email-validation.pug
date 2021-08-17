@@ -1,13 +1,10 @@
-extend /templates/auth-form/auth-form
+extend /templates/auth-container/auth-container
 
 block doc-title
   title email validation
 
-block form-area 
-  form.auth__form
+block auth-form-contents 
+  form.auth-form
     label example@instagram.com 으로 발송된 보안 코드를 확인해 주세요
-      input.auth__form__input(required="true" type="number")
+      input(required="true" type="number")
     button(type="submit") 제출하기
-
-block footer 
-  include /templates/footer/footer
