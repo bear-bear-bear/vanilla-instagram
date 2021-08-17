@@ -1,17 +1,11 @@
 import request from 'supertest';
 
-import runningStatusApp from 'app';
+import app from 'app';
 
-describe('서버 실행 환경 테스트', () => {
-  beforeAll(() => {
-    runningStatusApp.close();
-  });
+describe('서버 실행 환경 테스트',  () => {
+  test('Example route test', async () => {
+    const response = await request(app.callback()).get('/');
 
-  it('서버가 정상적으로 작동한다.', async () => {
-    await request(runningStatusApp)
-      .head('/')
-      .then(({ statusCode }) => {
-        expect(statusCode).toBe(404);
-      });
-  });
-})
+    expect(response).toBeDefined();
+  })
+});

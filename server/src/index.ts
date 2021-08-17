@@ -96,12 +96,8 @@ app.use(async (ctx, next) => {
 });
 
 const PORT = process.env.PORT || 8001;
-const runningStatusApp = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
 
-/**
- * @desc 테스트를 위한 서버 export
- * 테스트 방식을 변경하고 싶으시면 재작성 바람
- */
-export default runningStatusApp;
+export default app;
