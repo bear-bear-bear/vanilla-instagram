@@ -8,7 +8,8 @@
     "build": "cross-env NODE_ENV=production swc --config-file .swcrc.json src/ -d dist &",
     "start": "cross-env NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
     "test": "cross-env NODE_ENV=development jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "db:create": "cross-env NODE_ENV=development ts-node src/config/config --create"
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [
@@ -21,11 +22,13 @@
     "url": "git+https://github.com/bear-bear-bear/vanilla-instagram.git"
   },
   "dependencies": {
+    "del": "^6.0.0",
     "dotenv": "^10.0.0",
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
     "mariadb": "^2.5.4",
+    "mysql2": "^2.3.0",
     "regenerator-runtime": "^0.13.9",
     "sequelize": "^6.6.5",
     "snowpack": "^3.8.3"
