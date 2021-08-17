@@ -37,8 +37,8 @@ jobs:
           mysql user: 'user'
           mysql password: 'sungsimdang'
 
-      - name: 백엔드 환경설정 파일 복사 💥
-        run: pwd && cp .env.example .env
+      - name: 백엔드 환경설정 파일 복사 (For development, not production) 💥
+        run: pwd && cp .env.example .env.development
         working-directory: ${{ env.SERVER }}
 
       - name: 백엔드 패키지 설치 🔰
