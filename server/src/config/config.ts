@@ -1,6 +1,9 @@
+import { writeFile, mkdir } from 'fs';
+import { execSync } from 'child_process';
 import path from 'path';
 import dotenv from 'dotenv';
 import type { Dialect } from 'sequelize';
+import { sync as rm } from 'del';
 
 dotenv.config({ path: path.join(__dirname, '..', '..', `.env.${process.env.NODE_ENV}`) });
 
@@ -40,3 +43,23 @@ if (isUndefinedValue) {
 }
 
 export default config[env];
+
+/**
+ * @desc 임의의 json 을 생성하여 npx sequelize db:create 명령어를 수행합니다.
+ */
+function createDatabase() {
+  const jsonConfig = JSON.stringify(config[env]);
+  mkdir(path.join(__dirname, '..', '..', 'config'), (err) => {
+    if (err) process.exit(1);
+    writeFile(path.join(__dirname, '..', '..', 'config', 'config.json'), jsonConfig, (err) => {
+      if (err) process.exit(1);
+      execSync('npx sequelize db:create');
+      rm(path.join(__dirname, '..', '..', 'config'));
+      console.log('데이터베이스 생성완료');
+    });
+  });
+}
+
+if (process.argv[2] === '--create') {
+  createDatabase();
+}
