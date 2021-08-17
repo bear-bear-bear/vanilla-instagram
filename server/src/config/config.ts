@@ -33,10 +33,10 @@ const config: Config = {
   } as SequelizeConstructOptions,
 };
 
-const env = process.env.NODE_ENV || 'development';
-const isUndefinedValue = Object.values(config[env as Environment]).find((v) => v === undefined);
+const env = (process.env.NODE_ENV as Environment) || 'development';
+const isUndefinedValue = Object.values(config[env]).find((v) => v === undefined);
 if (isUndefinedValue) {
   throw new Error('데이터베이스 필수 환경 설정 값이 누락되었습니다.');
 }
 
-export default config[env as Environment];
+export default config[env];
