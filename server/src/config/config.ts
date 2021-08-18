@@ -1,11 +1,23 @@
-import { writeFile, mkdir } from 'fs';
+import { writeFile, mkdir, readdirSync } from 'fs';
 import { execSync } from 'child_process';
 import path from 'path';
-import dotenv from 'dotenv';
-import type { Dialect } from 'sequelize';
-import { sync as rm } from 'del';
 
-dotenv.config({ path: path.join(__dirname, '..', '..', `.env.${process.env.NODE_ENV}`) });
+import dotenv from 'dotenv';
+import { sync as rm } from 'del';
+import type { Dialect } from 'sequelize';
+
+const rootDir = path.join(__dirname, '..', '..'); // 🚩 High risk, because path is relative
+
+const validateRootDir = (dirname: string): void => {
+  const isRootDir = (pathLike: string) => readdirSync(pathLike).includes('node_modules');
+
+  if (!isRootDir(dirname)) {
+    throw new Error(`루트로 예상한 경로 ${dirname}에 node_modules/ 가 존재하지 않습니다.`);
+  }
+};
+validateRootDir(rootDir);
+
+dotenv.config({ path: path.join(rootDir, `.env.${process.env.NODE_ENV}`) });
 
 type Environment = 'development' | 'production';
 interface SequelizeConstructOptions {
@@ -47,19 +59,21 @@ export default config[env];
 /**
  * @desc 임의의 json 을 생성하여 npx sequelize db:create 명령어를 수행합니다.
  */
-function createDatabase() {
-  const jsonConfig = JSON.stringify(config[env]);
-  mkdir(path.join(__dirname, '..', '..', 'config'), (err) => {
-    if (err) process.exit(1);
-    writeFile(path.join(__dirname, '..', '..', 'config', 'config.json'), jsonConfig, (err) => {
-      if (err) process.exit(1);
-      execSync('npx sequelize db:create');
-      rm(path.join(__dirname, '..', '..', 'config'));
+const createDatabase = () => {
+  const sequelizeConfigJson = JSON.stringify(config[env]);
+  const sequelizeConfigDir = path.join(rootDir, 'config');
+
+  mkdir(sequelizeConfigDir, (err) => {
+    if (err) throw err;
+    writeFile(path.join(sequelizeConfigDir, 'config.json'), sequelizeConfigJson, (error) => {
+      if (error) throw error;
+      execSync('npx sequelize-cli db:create');
+      rm(sequelizeConfigDir);
       console.log('데이터베이스 생성완료');
     });
   });
-}
+};
 
-if (process.argv[2] === '--create') {
+if (process.argv.includes('--create')) {
   createDatabase();
 }
