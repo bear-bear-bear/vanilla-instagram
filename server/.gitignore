@@ -5,6 +5,8 @@ src/public/
 
 # local env files
 .env
+.env.development
+.env.production
 
 # Logs
 logs

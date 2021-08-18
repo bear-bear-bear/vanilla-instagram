@@ -6,9 +6,17 @@ import Router from 'koa-router';
 import dotenv from 'dotenv';
 import serve from 'koa-static';
 
-dotenv.config();
+import db from './models';
+
+dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
+
 const app = new Koa();
 const router = new Router();
+
+db.sequelize
+  .sync({ force: false, logging: false })
+  .catch((err) => console.error(err.message))
+  .finally(() => db.sequelize.close());
 
 const STATIC_DIR = path.join(__dirname, 'public');
 
@@ -84,12 +92,8 @@ app.use(async (ctx, next) => {
 });
 
 const PORT = process.env.PORT || 8001;
-const runningStatusApp = app.listen(PORT, () => {
+export const appListener = app.listen(PORT, () => {
   console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
 
-/**
- * @desc 테스트를 위한 서버 export
- * 테스트 방식을 변경하고 싶으시면 재작성 바람
- */
-export default runningStatusApp;
+export default app;
