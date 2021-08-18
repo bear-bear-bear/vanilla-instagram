@@ -61,14 +61,14 @@ export default config[env];
  */
 const createDatabase = () => {
   const sequelizeConfigJson = JSON.stringify(config[env]);
-  const sequelizeConfigDir = path.join(rootDir, 'config');
+  const sequelizeConfigDirname = path.join(rootDir, 'config');
 
-  mkdir(sequelizeConfigDir, (err) => {
+  mkdir(sequelizeConfigDirname, (err) => {
     if (err) throw err;
-    writeFile(path.join(sequelizeConfigDir, 'config.json'), sequelizeConfigJson, (error) => {
+    writeFile(path.join(sequelizeConfigDirname, 'config.json'), sequelizeConfigJson, (error) => {
       if (error) throw error;
       execSync('npx sequelize-cli db:create');
-      rm(sequelizeConfigDir);
+      rm(sequelizeConfigDirname);
       console.log('데이터베이스 생성완료');
     });
   });
