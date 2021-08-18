@@ -37,7 +37,7 @@ const config: Config = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE || 'instagram_development',
     host: process.env.DB_HOST || 'localhost',
-    dialect: process.env.DB_DIALECT || 'mariadb',
+    dialect: process.env.DB_DIALECT || 'mysql',
   } as SequelizeConstructOptions,
   production: {
     username: process.env.DB_USERNAME || 'root',
