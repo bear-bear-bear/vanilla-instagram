@@ -14,13 +14,9 @@ const app = new Koa();
 const router = new Router();
 
 db.sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log('데이터베이스 연결 성공');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+  .sync({ force: false, logging: false })
+  .catch((err) => console.error(err.message))
+  .finally(() => db.sequelize.close());
 
 const STATIC_DIR = path.join(__dirname, 'public');
 
@@ -96,7 +92,7 @@ app.use(async (ctx, next) => {
 });
 
 const PORT = process.env.PORT || 8001;
-app.listen(PORT, () => {
+export const appListener = app.listen(PORT, () => {
   console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
 

@@ -1,7 +1,6 @@
 import request from 'supertest';
 
-import app from 'app';
-import { Server } from 'http';
+import app, { appListener } from 'app';
 
 /**
  * @modifier galaxy4276
@@ -10,14 +9,8 @@ import { Server } from 'http';
  * @problem sequelize Promise 부분을 읽어오지 못하는 이슈를 발생시키고 있습니다. ( 참고 )
  */
 describe('서버 실행 환경 테스트',  () => {
-  let http: Server;
-
-  beforeAll(() => {
-    http = app.listen(8888);
-  });
-
   afterAll(() => {
-    http.close();
+    appListener.close();
   });
 
   test('Example route test', async () => {
