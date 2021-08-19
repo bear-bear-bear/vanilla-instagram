@@ -33,5 +33,6 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/no-unresolved': 'off', // for webpack path alias
+    'import/extensions': ['error', 'never', { js: 'always' }],
   },
 };
