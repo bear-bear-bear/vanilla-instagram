@@ -1,4 +1,4 @@
-import './home';
+import './home.js';
 import './home.scss';
 
 // template dependencies

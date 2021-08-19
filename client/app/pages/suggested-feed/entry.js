@@ -1,4 +1,4 @@
-import './suggested-feed';
+import './suggested-feed/js';
 import './suggested-feed.scss';
 
 // template dependencies
