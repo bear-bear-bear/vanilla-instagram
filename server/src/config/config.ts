@@ -63,6 +63,8 @@ const createDatabase = () => {
   const sequelizeConfigJson = JSON.stringify(config[env]);
   const sequelizeConfigDirname = path.join(rootDir, 'config');
 
+  rm(sequelizeConfigDirname);
+
   mkdir(sequelizeConfigDirname, (err) => {
     if (err) throw err;
     writeFile(path.join(sequelizeConfigDirname, 'config.json'), sequelizeConfigJson, (error) => {
