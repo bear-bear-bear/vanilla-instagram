@@ -8,8 +8,8 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 
-const parts = require('./webpack.parts');
-const pageNames = require('./page.config');
+const parts = require('./webpack.parts.js');
+const pageNames = require('./page.config.js');
 
 const pageNameToHtmlPathMap = pageNames.reduce((acc, page) => {
   const pageName = page !== 'home' ? page : 'index';
