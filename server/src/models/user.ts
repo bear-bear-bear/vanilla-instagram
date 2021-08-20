@@ -1,10 +1,11 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from './sequelize';
+
+import sequelize from './_sequelize';
 import type { Database } from './index';
 
 class User extends Model {
   public readonly id!: number;
-  public email!: string;
+  public phone_number!: string;
   public realname!: string;
   public username!: string;
   public password!: string;
@@ -15,15 +16,21 @@ class User extends Model {
   public readonly deleted_at!: Date | null;
 
   public static associate = (db: Database): void => {
+    db.User.hasMany(db.Post);
+    db.User.hasMany(db.Comment);
+    db.User.belongsToMany(db.Post, { through: 'post_like', as: 'PostLiked' });
+    db.User.belongsToMany(db.Comment, { through: 'comment_like', as: 'CommentLiked' });
     db.User.belongsToMany(db.User, {
-      through: 'Follow',
+      through: 'follow',
       as: 'Followers',
-      foreignKey: 'following_id',
+      foreignKey: 'follower_id',
+      timestamps: false,
     });
     db.User.belongsToMany(db.User, {
-      through: 'Follow',
+      through: 'follow',
       as: 'Followings',
-      foreignKey: 'follower_id',
+      foreignKey: 'following_id',
+      timestamps: false,
     });
   };
 }
@@ -35,7 +42,7 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    email: {
+    phone_number: {
       type: DataTypes.STRING(255),
       allowNull: false,
       unique: true,
@@ -68,9 +75,8 @@ User.init(
     sequelize,
     tableName: 'users',
     modelName: 'User',
+    timestamps: true,
     paranoid: true,
-    charset: 'utf8',
-    collate: 'utf8_general_ci',
   }
 );
 

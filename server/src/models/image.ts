@@ -3,39 +3,36 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from './_sequelize';
 import type { Database } from './index';
 
-class Post extends Model {
+class Image extends Model {
   public readonly id!: number;
-  public readonly user_id!: number;
-  public content!: string;
+  public readonly post_id!: number;
+  public name!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
   public readonly deleted_at!: Date | null;
 
   public static associate = (db: Database): void => {
-    db.Post.belongsToMany(db.Hashtag, { through: 'post_hashtag' });
-    db.Post.belongsToMany(db.User, { through: 'post_like', as: 'PostLikers' });
-    db.Post.belongsTo(db.User);
-    db.Post.hasMany(db.Comment);
-    db.Post.hasMany(db.Image);
+    db.Image.belongsTo(db.Post);
   };
 }
 
-Post.init(
+Image.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
-    content: {
-      type: DataTypes.STRING(500),
+    name: {
+      type: DataTypes.STRING(255),
+      unique: true,
       allowNull: false,
     },
   },
   {
     sequelize,
-    tableName: 'posts',
-    modelName: 'Post',
+    tableName: 'images',
+    modelName: 'Image',
     timestamps: true,
     paranoid: true,
     charset: 'utf8mb4',
@@ -43,4 +40,4 @@ Post.init(
   }
 );
 
-export default Post;
+export default Image;
