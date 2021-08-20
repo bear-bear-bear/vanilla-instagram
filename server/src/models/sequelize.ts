@@ -8,6 +8,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
     charset: 'utf8mb4',
     collate: 'utf8mb4_general_ci',
     timestamps: true,
+    underscored: true,
   },
 });
 
