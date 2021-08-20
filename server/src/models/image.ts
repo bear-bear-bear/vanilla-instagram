@@ -18,11 +18,6 @@ class Image extends Model {
 
 Image.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     name: {
       type: DataTypes.STRING(255),
       unique: true,

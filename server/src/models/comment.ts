@@ -21,11 +21,6 @@ class Comment extends Model {
 
 Comment.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     content: {
       type: DataTypes.STRING(255),
       allowNull: false,

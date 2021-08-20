@@ -15,11 +15,6 @@ class Hashtag extends Model {
 
 Hashtag.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     name: {
       type: DataTypes.STRING(255),
       allowNull: false,

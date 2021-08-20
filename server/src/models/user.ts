@@ -37,11 +37,6 @@ class User extends Model {
 
 User.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     phone_number: {
       type: DataTypes.STRING(255),
       allowNull: false,

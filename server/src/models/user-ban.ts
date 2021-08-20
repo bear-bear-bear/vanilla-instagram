@@ -17,11 +17,6 @@ class UserBan extends Model {
 
 UserBan.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     expired_at: {
       type: DataTypes.DATEONLY,
       allowNull: true,

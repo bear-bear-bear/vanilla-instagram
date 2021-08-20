@@ -22,11 +22,6 @@ class Post extends Model {
 
 Post.init(
   {
-    id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     content: {
       type: DataTypes.STRING(500),
       allowNull: false,
