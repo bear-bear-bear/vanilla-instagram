@@ -3,7 +3,7 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from './_sequelize';
 import type { Database } from './index';
 
-class UserBan extends Model {
+class Ban extends Model {
   public readonly id!: number;
   public readonly user_id!: number;
   public readonly expired_at!: Date | null;
@@ -11,11 +11,11 @@ class UserBan extends Model {
   public readonly updated_at!: Date;
 
   public static associate = (db: Database): void => {
-    db.UserBan.belongsTo(db.User);
+    db.Ban.belongsTo(db.User);
   };
 }
 
-UserBan.init(
+Ban.init(
   {
     expired_at: {
       type: DataTypes.DATEONLY,
@@ -24,10 +24,10 @@ UserBan.init(
   },
   {
     sequelize,
-    tableName: 'user_ban',
-    modelName: 'UserBan',
+    tableName: 'ban',
+    modelName: 'Ban',
     timestamps: true,
   }
 );
 
-export default UserBan;
+export default Ban;
