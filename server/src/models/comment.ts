@@ -33,7 +33,7 @@ Comment.init(
   },
   {
     sequelize,
-    tableName: 'comments',
+    tableName: 'comment',
     modelName: 'Comment',
     timestamps: true,
     paranoid: true,

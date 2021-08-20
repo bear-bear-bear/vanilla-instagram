@@ -29,7 +29,7 @@ UserBan.init(
   },
   {
     sequelize,
-    tableName: 'user_bans',
+    tableName: 'user_ban',
     modelName: 'UserBan',
     timestamps: true,
   }

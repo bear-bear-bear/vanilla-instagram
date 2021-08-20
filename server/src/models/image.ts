@@ -31,7 +31,7 @@ Image.init(
   },
   {
     sequelize,
-    tableName: 'images',
+    tableName: 'image',
     modelName: 'Image',
     timestamps: true,
     paranoid: true,

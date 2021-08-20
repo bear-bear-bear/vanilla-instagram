@@ -27,7 +27,7 @@ Hashtag.init(
   },
   {
     sequelize,
-    tableName: 'hashtags',
+    tableName: 'hashtag',
     modelName: 'Hashtag',
     timestamps: false,
     charset: 'utf8mb4',

@@ -34,7 +34,7 @@ Post.init(
   },
   {
     sequelize,
-    tableName: 'posts',
+    tableName: 'post',
     modelName: 'Post',
     timestamps: true,
     paranoid: true,

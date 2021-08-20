@@ -35,7 +35,7 @@ Admin.init(
   },
   {
     sequelize,
-    tableName: 'admins',
+    tableName: 'admin',
     modelName: 'Admin',
     timestamps: true,
     paranoid: true,

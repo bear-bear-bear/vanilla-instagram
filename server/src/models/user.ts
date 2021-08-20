@@ -73,7 +73,7 @@ User.init(
   },
   {
     sequelize,
-    tableName: 'users',
+    tableName: 'user',
     modelName: 'User',
     timestamps: true,
     paranoid: true,
