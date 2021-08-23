@@ -16,11 +16,13 @@
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "app": ["."],
-      "app/*": ["./*"]
+      "app": ["./src"],
+      "app/*": ["./src/*"],
+      "typings/*": ["./typings/*"],
     },
+    "typeRoots": ["./typings"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
@@ -29,7 +31,7 @@
     "**/*.ts",
     "**/*.js",
     ".eslintrc.js"
-  ],  
+  ],
   "exclude": [  
     "node_modules"  
   ]
