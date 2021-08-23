@@ -15,6 +15,7 @@
     "strict": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
