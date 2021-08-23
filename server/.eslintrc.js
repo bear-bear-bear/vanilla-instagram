@@ -51,5 +51,6 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/no-unresolved': 'error',
+    'max-classes-per-file': 'off',
   },
 };
