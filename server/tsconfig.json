@@ -21,9 +21,9 @@
     "paths": {
       "app": ["./src"],
       "app/*": ["./src/*"],
-      "typings/*": ["./typings/*"],
+      "typings/*": ["./typings/*"]
     },
-    "typeRoots": ["./typings"],
+    "typeRoots": ["node_modules/@types", "typings"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
