@@ -40,7 +40,6 @@ User.init(
     phone_number: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: true,
     },
     realname: {
       type: DataTypes.STRING(30),
