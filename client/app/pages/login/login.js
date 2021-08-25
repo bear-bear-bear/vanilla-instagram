@@ -1,1 +1,1 @@
-import '@/lib/dynamicInput'
+import '@/lib/dynamicInput';
