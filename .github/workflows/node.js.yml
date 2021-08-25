@@ -33,9 +33,7 @@ jobs:
           collation server: 'utf8_general_ci'
           mariadb version: '10.4.10'
           mysql database: 'vanila-instagram'
-          mysql root password: 'sungsimdang12'
-          mysql user: 'user'
-          mysql password: 'sungsimdang'
+          mysql root password: 'instagram'
 
       - name: 백엔드 환경설정 파일 복사 (For development, not production) 💥
         run: pwd && cp .env.example .env.development
