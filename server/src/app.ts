@@ -8,7 +8,11 @@ import serve from 'koa-static';
 
 import db from './models';
 
-dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.production`) });
+} else {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.development`) });
+}
 
 const app = new Koa();
 const router = new Router();

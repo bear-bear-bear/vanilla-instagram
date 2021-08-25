@@ -7,7 +7,11 @@ import path from 'path';
 
 // 테스트는 lib/ 에서 하고, SMS 인증 로직은 라우터로 작성할 것임 -bear
 
-dotenv.config({ path: path.join(__dirname, '..', '..', `.env.development`) });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.production`) });
+} else {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.development`) });
+}
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
