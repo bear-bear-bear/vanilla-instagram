@@ -12,7 +12,7 @@ const config: Config.InitialOptions = {
   errorOnDeprecated: true,
   moduleFileExtensions: ['ts', 'js', 'json'],
   rootDir: '.',
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' } ),
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' } ),
   transform: {
     '\\.ts$': 'ts-jest',
     '\\.js$': 'babel-jest',
