@@ -8,7 +8,11 @@ import serve from 'koa-static';
 
 import db from './models';
 
-dotenv.config({ path: path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`) });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.production`) });
+} else {
+  dotenv.config({ path: path.join(__dirname, '..', `.env.development`) });
+}
 
 const app = new Koa();
 const router = new Router();
@@ -28,10 +32,9 @@ app.use(serve(STATIC_DIR));
  * hmr 과 유사한 효과를 낼 수 있게 해주는 미들웨어 (코드 분할 예정)
  * 클라이언트단 번들 결과물 변경시 SSE 를 통해 브라우저에 신호를 전송하여 리로드하게 합니다. (신호 감지 후 리로드하는 로직은 클라이언트 쪽에 있습니다)
 
-  원리를 정리하면 아래와 같음
   1. 프론트엔드 작업 공간에서 무언가 코드를 작성
   2. 프론트엔드측 webpack watch 모드가 변경을 감지하여 리빌드
-  3. koa 서버에서 빌드 디렉터리의 변경을 감지하여 브라우저에 신호 보냄 (SSE)
+  3. koa 서버에서 빌드 디렉터리의 변경을 감지하여 브라우저에 신호 전송 (SSE)
   4. 해당 신호를 client/app/entries/common.js 에서 해당 신호를 받아 브라우저 리로딩  (리로딩하는 이유 - 서버에 데이터 재요청을 보내게 되어 변경된 데이터가 적용될 수 있게 함)
  */
 if (process.env.NODE_ENV !== 'production') {
@@ -89,11 +92,6 @@ app.use(async (ctx, next) => {
     ctx.status = 500;
     ctx.body = 'server error';
   }
-});
-
-const PORT = process.env.PORT || 8001;
-export const appListener = app.listen(PORT, () => {
-  console.log(`🌟 http://localhost:${PORT} 🌟`);
 });
 
 export default app;

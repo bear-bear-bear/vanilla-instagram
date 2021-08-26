@@ -1,16 +1,16 @@
-import request from 'supertest';
+import { encodingExists } from 'iconv-lite';
+import app from 'src/app';
 
-import app, { appListener } from 'app';
+const mockListen = jest.fn();
+app.listen = mockListen;
+encodingExists('foo');
 
-describe('서버 실행 환경 테스트',  () => {
-  afterAll(() => {
-    appListener.close();
-  });
+afterEach(() => {
+    mockListen.mockReset();
+});
 
-  test('Example route test', async () => {
-    jest.useFakeTimers(); // FIXME: 임시 테스트 오류 해결  (ReferenceError: You are trying to `import` a file after the Jest environment has been torn down.)
-    const response = await request(app.callback()).get('/');
-
-    expect(response).toBeDefined();
-  })
+it('서버가 동작합니다.', async () => {
+    await import('src/server');
+    expect(mockListen.mock.calls.length).toBe(1);
+    expect(mockListen.mock.calls[0][0]).toBe(process.env.PORT || 8001);
 });

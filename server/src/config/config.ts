@@ -17,7 +17,11 @@ const validateRootDir = (dirname: string): void => {
 };
 validateRootDir(rootDir);
 
-dotenv.config({ path: path.join(rootDir, `.env.${process.env.NODE_ENV}`) });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: path.join(__dirname, '..', '..', `.env.production`) });
+} else {
+  dotenv.config({ path: path.join(__dirname, '..', '..', `.env.development`) });
+}
 
 type Environment = 'development' | 'production';
 interface SequelizeConstructOptions {
@@ -55,7 +59,6 @@ if (isUndefinedValue) {
 }
 
 export default config[env];
-
 /**
  * @desc 임의의 json 을 생성하여 npx sequelize db:create 명령어를 수행합니다.
  */
