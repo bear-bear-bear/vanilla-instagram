@@ -5,6 +5,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import dotenv from 'dotenv';
 import serve from 'koa-static';
+import koaBody from 'koa-body';
 
 import db from './models';
 
@@ -25,6 +26,7 @@ db.sequelize
 const STATIC_DIR = path.join(__dirname, 'public');
 
 app.use(router.routes());
+app.use(koaBody());
 app.use(serve(STATIC_DIR));
 
 /**
