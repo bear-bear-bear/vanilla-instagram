@@ -8,9 +8,9 @@ import path from 'path';
 // 테스트는 lib/ 에서 하고, SMS 인증 로직은 라우터로 작성할 것임 -bear
 
 if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: path.join(__dirname, '..', `.env.production`) });
+  dotenv.config({ path: path.join(__dirname, '..', '..', `.env.production`) });
 } else {
-  dotenv.config({ path: path.join(__dirname, '..', `.env.development`) });
+  dotenv.config({ path: path.join(__dirname, '..', '..', `.env.development`) });
 }
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -21,6 +21,7 @@ client.messages
   .create({
     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
     from: process.env.TWILIO_FROM,
-    to: '+821026525302',
+    to: '821026525302',
   })
-  .then((message) => console.log(message.sid));
+  .then((message) => console.log(message))
+  .catch((err) => console.error(err));
