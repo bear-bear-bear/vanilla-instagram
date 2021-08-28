@@ -5,7 +5,10 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import dotenv from 'dotenv';
 import serve from 'koa-static';
-import koaBody from 'koa-body';
+import bodyParser from 'koa-body';
+import session from 'koa-session';
+import logger from 'koa-logger';
+// import cors from 'cors';
 
 import db from './models';
 
@@ -17,16 +20,24 @@ if (process.env.NODE_ENV === 'production') {
 
 const app = new Koa();
 const router = new Router();
+const STATIC_DIR = path.join(__dirname, 'public');
 
 db.sequelize
   .sync({ force: false, logging: false })
   .catch((err) => console.error(err.message))
   .finally(() => db.sequelize.close());
 
-const STATIC_DIR = path.join(__dirname, 'public');
-
+app.use(logger());
 app.use(router.routes());
-app.use(koaBody());
+app.use(router.allowedMethods());
+app.use(bodyParser());
+app.keys = [process.env.COOKIE_SECRET as string];
+const sessionOption = {
+  maxAge: 3 * 60 * 1000,
+  renew: false,
+  key: process.env.COOKIE_SECRET,
+};
+app.use(session(sessionOption, app));
 app.use(serve(STATIC_DIR));
 
 /**
@@ -87,12 +98,12 @@ app.use(async (ctx, next) => {
     if (!ctx.body) {
       // no resources
       ctx.status = 404;
-      ctx.body = 'not found';
+      ctx.body = '404 not found';
     }
   } catch (err) {
     // If the following code reports an error, return 500
     ctx.status = 500;
-    ctx.body = 'server error';
+    ctx.body = '500 server error';
   }
 });
 
