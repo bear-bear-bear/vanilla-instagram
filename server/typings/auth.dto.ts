@@ -3,20 +3,20 @@ import {
   IsLowercase,
   IsMobilePhone,
   IsString,
-  IsNumberString,
+  // IsNumberString,
   Matches,
   MaxLength,
   MinLength,
-  Length,
+  // Length,
 } from 'class-validator';
 import type { CreateUserProps, ReadUserProps } from 'typings/auth';
 
-export class VerifyExistenceUsernameDto {
-  @IsString()
-  @IsAlphanumeric()
-  @IsLowercase()
-  username!: string;
-}
+// export class VerifyExistenceUsernameDto {
+//   @IsString()
+//   @IsAlphanumeric()
+//   @IsLowercase()
+//   username!: string;
+// }
 
 export class SendSMSVerificationCodeDto {
   @IsString()
@@ -24,11 +24,15 @@ export class SendSMSVerificationCodeDto {
   phoneNumber!: string;
 }
 
-export class CheckSMSVerificationCodeDto {
-  @IsNumberString()
-  @Length(6, 6)
-  code!: string;
-}
+// export class CheckSMSVerificationCodeDto {
+//   @IsString()
+//   @IsMobilePhone('ko-KR')
+//   phoneNumber!: string;
+//
+//   @IsNumberString()
+//   @Length(6, 6)
+//   code!: string;
+// }
 
 export class CreateUserDto implements CreateUserProps {
   @IsMobilePhone('ko-KR')
