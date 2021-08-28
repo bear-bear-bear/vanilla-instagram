@@ -4,8 +4,8 @@ import { validate } from 'class-validator';
 import type { ValidationError } from 'class-validator';
 
 import User from 'src/models/user';
-import { CreateUserDto } from 'typings/auth.dto';
-import { CreateUserProps } from 'typings/auth';
+import { CreateUserDto } from 'typings/user.dto';
+import { CreateUserProps } from 'typings/user';
 
 export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
   const { username } = ctx.params;

@@ -3,7 +3,7 @@ import twilio from 'twilio';
 import { validate } from 'class-validator';
 import type { ValidationError } from 'class-validator';
 
-import { SendSMSVerificationCodeDto } from 'typings/auth.dto';
+import SendSMSVerificationCodeDto from 'typings/sms.dto';
 
 export const sendSMSVerificationCode = async (ctx: Context): Promise<void> => {
   const { phoneNumber } = ctx.request.body;
