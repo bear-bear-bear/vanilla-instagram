@@ -50,8 +50,7 @@ export const checkSMSCode = async (ctx: Context): Promise<void> => {
   const { phoneNumber, code }: CheckSMSCodeProps = ctx.request.body;
 
   if (!ctx.session) throw new TypeError('"ctx.session" is not defined');
-  if (!ctx.session.code) ctx.session.code = {};
-  const sentCode = ctx.session.code[phoneNumber];
+  const sentCode = ctx.session.code && ctx.session.code[phoneNumber];
 
   if (!sentCode) {
     ctx.status = 410;
@@ -65,6 +64,8 @@ export const checkSMSCode = async (ctx: Context): Promise<void> => {
     ctx.body = { error: '잘못된 인증번호입니다.' };
     return;
   }
+  if (!ctx.session.checked) ctx.session.checked = [];
+  ctx.session.checked.push(phoneNumber);
   ctx.status = 202;
   ctx.body = { message: '인증번호 확인 완료.' };
 };
