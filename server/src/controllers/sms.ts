@@ -22,7 +22,7 @@ export const sendSMSVerificationCode = async (ctx: Context): Promise<void> => {
   const randomNum = Math.ceil(Math.random() * max);
   const verificationCodeStr = randomNum.toString().padStart(6, '0'); // '000001' ~ '999999'
 
-  if (!ctx.session) throw new Error('ctx 에 session 프로퍼티가 존재하지 않습니다.');
+  if (!ctx.session) throw new TypeError('"ctx.session" is not defined');
   if (!ctx.session.verificationCode) ctx.session.verificationCode = {};
   ctx.session.verificationCode[phoneNumber] = verificationCodeStr;
 
@@ -42,7 +42,7 @@ export const sendSMSVerificationCode = async (ctx: Context): Promise<void> => {
   ctx.body = {
     message: `${recipient} 번호로 인증번호가 전송되었습니다.`,
     data: {
-      maxAge: 3 * 60 * 1000,
+      maxAge: ctx.session.maxAge, // 클라이언트에 타이머 요청하기
     },
   };
 };
@@ -50,15 +50,20 @@ export const sendSMSVerificationCode = async (ctx: Context): Promise<void> => {
 export const checkSMSVerificationCode = async (ctx: Context): Promise<void> => {
   const { phoneNumber, code } = ctx.request.body;
 
-  if (!ctx.session) throw new Error('ctx 에 session 프로퍼티가 존재하지 않습니다.');
+  if (!ctx.session) throw new TypeError('"ctx.session" is not defined');
   if (!ctx.session.verificationCode) ctx.session.verificationCode = {};
   const sentCode = ctx.session.verificationCode[phoneNumber];
-  if (!sentCode)
-    throw new Error(`${phoneNumber} 번호로 저장했던 인증 코드가 만료되었거나 존재하지 않습니다.`);
 
+  if (!sentCode) {
+    ctx.status = 410;
+    ctx.body = {
+      error: `${phoneNumber} 번호로 저장했던 인증 코드가 만료되었거나 존재하지 않습니다.`,
+    };
+    return;
+  }
   if (code !== sentCode) {
     ctx.status = 400;
-    ctx.body = { message: '잘못된 인증번호입니다.' };
+    ctx.body = { error: '잘못된 인증번호입니다.' };
     return;
   }
   ctx.status = 202;

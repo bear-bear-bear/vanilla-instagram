@@ -10,6 +10,7 @@ import logger from 'koa-logger';
 
 import db from './models';
 import router from './routes';
+import saveErrorMessage from './lib/saveErrorMessage';
 
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: path.join(__dirname, '..', `.env.production`) });
@@ -43,5 +44,7 @@ app.use(serve(staticDir, serveOptions));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+app.on('error', saveErrorMessage);
 
 export default app;

@@ -5,6 +5,7 @@ import userRouter from './user';
 
 const router = new Router();
 
+// TODO: 프런트 측에 에러 페이지 요구
 router.use('(.*)', async (ctx, next) => {
   try {
     await next();
@@ -13,9 +14,9 @@ router.use('(.*)', async (ctx, next) => {
       ctx.body = '404 not found';
     }
   } catch (err) {
-    console.error(err);
     ctx.status = 500;
-    ctx.body = '500 server error';
+    ctx.body = { error: '500 server error' };
+    ctx.app.emit('error', err, ctx);
   }
 });
 

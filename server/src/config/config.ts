@@ -45,7 +45,7 @@ const currConfig = config[nodeEnv] || config.development;
 
 const isUndefinedValue = Object.values(currConfig).find((v) => v === undefined);
 if (isUndefinedValue) {
-  throw new Error('데이터베이스 필수 환경 설정 값이 누락되었습니다.');
+  throw new TypeError('데이터베이스 필수 환경 설정 값이 누락되었습니다.');
 }
 
 export default currConfig;
