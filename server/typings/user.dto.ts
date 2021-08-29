@@ -7,7 +7,14 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import type { CreateUserProps, ReadUserProps } from 'typings/auth';
+import type { CreateUserProps, ReadUserProps } from 'typings/user';
+
+// export class VerifyExistenceUsernameDto {
+//   @IsString()
+//   @IsAlphanumeric()
+//   @IsLowercase()
+//   username!: string;
+// }
 
 export class CreateUserDto implements CreateUserProps {
   @IsMobilePhone('ko-KR')
