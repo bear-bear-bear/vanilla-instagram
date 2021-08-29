@@ -22,9 +22,11 @@ const app = new Koa();
 export const staticDir = path.join(__dirname, 'public'); // build from client
 
 db.sequelize
-  .sync({ force: false, logging: false })
-  .catch((err) => console.error(err.message))
-  .finally(() => db.sequelize.close());
+  .sync({
+    force: false,
+    logging: false,
+  })
+  .catch((err) => console.error(err.message));
 
 app.use(logger());
 app.use(bodyParser());

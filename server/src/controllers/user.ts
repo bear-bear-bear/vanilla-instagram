@@ -5,10 +5,10 @@ import type { ValidationError } from 'class-validator';
 
 import User from 'src/models/user';
 import { CreateUserDto } from 'typings/user.dto';
-import { CreateUserProps } from 'typings/user';
+import type { CreateUserProps, VerifyExistenceUsernameProps } from 'typings/user';
 
 export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
-  const { username } = ctx.params;
+  const { username }: VerifyExistenceUsernameProps = ctx.params;
 
   const exUser = await User.findOne({
     where: { username },
@@ -26,11 +26,31 @@ export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
 export const createUser = async (ctx: Context): Promise<void> => {
   const createUserFields: CreateUserProps = ctx.request.body;
 
+  if (!ctx.session) throw new TypeError('"ctx.session" is not defined');
+  console.log('checked', ctx.session?.checked);
+  const isCheckedPhone = ctx.session?.checked?.includes(createUserFields.phoneNumber);
+  if (!isCheckedPhone) {
+    ctx.status = 401;
+    ctx.body = { error: '인증되지 않은 핸드폰 번호 입니다.' };
+    return;
+  }
+
   const createUserDto = new CreateUserDto(createUserFields);
   const validationErrors: ValidationError[] = await validate(createUserDto);
   if (validationErrors.length > 0) {
     ctx.status = 400;
-    ctx.body = { message: validationErrors };
+    ctx.body = { error: validationErrors };
+    return;
+  }
+
+  const exUser = await User.findOne({
+    where: {
+      username: createUserFields.username,
+    },
+  });
+  if (exUser) {
+    ctx.status = 409;
+    ctx.body = { error: '이미 존재하는 유저입니다.' };
     return;
   }
 
