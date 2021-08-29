@@ -26,12 +26,7 @@ export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
 export const createUser = async (ctx: Context): Promise<void> => {
   const createUserFields: CreateUserProps = ctx.request.body;
 
-  const createUserDto = new CreateUserDto();
-  Object.keys(createUserFields).forEach((fieldName) => {
-    type FieldName = keyof CreateUserProps;
-    createUserDto[fieldName as FieldName] = createUserFields[fieldName as FieldName];
-  });
-
+  const createUserDto = new CreateUserDto(createUserFields);
   const validationErrors: ValidationError[] = await validate(createUserDto);
   if (validationErrors.length > 0) {
     ctx.status = 400;

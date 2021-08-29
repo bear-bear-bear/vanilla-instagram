@@ -1,9 +1,9 @@
 import Router from 'koa-router';
-import { sendSMSVerificationCode, checkSMSVerificationCode } from 'src/controllers/sms';
+import { sendSMSCode, checkSMSCode } from 'src/controllers/sms';
 
 const router = new Router();
 
-router.post('/', sendSMSVerificationCode);
-router.post('/match', checkSMSVerificationCode);
+router.post('/', sendSMSCode);
+router.post('/match', checkSMSCode);
 
 export default router;

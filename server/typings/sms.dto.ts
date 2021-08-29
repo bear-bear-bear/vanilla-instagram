@@ -1,17 +1,12 @@
 import { IsMobilePhone, IsString } from 'class-validator';
+import type { SendSMSCodeProps } from 'typings/sms';
 
-export default class SendSMSVerificationCodeDto {
+export default class SendSMSCodeDto {
+  constructor({ phoneNumber }: SendSMSCodeProps) {
+    this.phoneNumber = phoneNumber;
+  }
+
   @IsString()
   @IsMobilePhone('ko-KR')
   phoneNumber!: string;
 }
-
-// export class CheckSMSVerificationCodeDto {
-//   @IsString()
-//   @IsMobilePhone('ko-KR')
-//   phoneNumber!: string;
-
-//   @IsNumberString()
-//   @Length(6, 6)
-//   code!: string;
-// }

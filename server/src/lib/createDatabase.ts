@@ -4,7 +4,7 @@ import { writeFile, mkdir, readdirSync } from 'fs';
 import { execSync } from 'child_process';
 import { sync as rm } from 'del';
 
-import config from 'src/config/config';
+import config from '../config/config';
 
 const rootDir = path.join(__dirname, '..', '..'); // 🚩 High risk, because path is relative
 
