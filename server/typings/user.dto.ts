@@ -9,14 +9,14 @@ import {
 } from 'class-validator';
 import type { CreateUserProps, ReadUserProps } from 'typings/user';
 
-// export class VerifyExistenceUsernameDto {
-//   @IsString()
-//   @IsAlphanumeric()
-//   @IsLowercase()
-//   username!: string;
-// }
+export class CreateUserDto {
+  constructor({ phoneNumber, realname, username, password }: CreateUserProps) {
+    this.phoneNumber = phoneNumber;
+    this.realname = realname;
+    this.username = username;
+    this.password = password;
+  }
 
-export class CreateUserDto implements CreateUserProps {
   @IsMobilePhone('ko-KR')
   phoneNumber!: string;
 
@@ -37,7 +37,12 @@ export class CreateUserDto implements CreateUserProps {
   password!: string;
 }
 
-export class ReadUserDto implements ReadUserProps {
+export class ReadUserDto {
+  constructor({ id, password }: ReadUserProps) {
+    this.id = id;
+    this.password = password;
+  }
+
   @IsString()
   id!: string; // phone number || username
 

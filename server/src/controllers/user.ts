@@ -16,7 +16,7 @@ export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
 
   if (exUser) {
     ctx.status = 409;
-    ctx.body = { message: '이미 존재하는 username 입니다.' };
+    ctx.body = { error: '이미 존재하는 username 입니다.' };
     return;
   }
   ctx.status = 202;
@@ -26,12 +26,7 @@ export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
 export const createUser = async (ctx: Context): Promise<void> => {
   const createUserFields: CreateUserProps = ctx.request.body;
 
-  const createUserDto = new CreateUserDto();
-  Object.keys(createUserFields).forEach((fieldName) => {
-    type FieldName = keyof CreateUserProps;
-    createUserDto[fieldName as FieldName] = createUserFields[fieldName as FieldName];
-  });
-
+  const createUserDto = new CreateUserDto(createUserFields);
   const validationErrors: ValidationError[] = await validate(createUserDto);
   if (validationErrors.length > 0) {
     ctx.status = 400;
