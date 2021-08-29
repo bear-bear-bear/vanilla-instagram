@@ -5,10 +5,10 @@ import type { ValidationError } from 'class-validator';
 
 import User from 'src/models/user';
 import { CreateUserDto } from 'typings/user.dto';
-import { CreateUserProps } from 'typings/user';
+import type { CreateUserProps, VerifyExistenceUsernameProps } from 'typings/user';
 
 export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
-  const { username } = ctx.params;
+  const { username }: VerifyExistenceUsernameProps = ctx.params;
 
   const exUser = await User.findOne({
     where: { username },
@@ -30,7 +30,7 @@ export const createUser = async (ctx: Context): Promise<void> => {
   const validationErrors: ValidationError[] = await validate(createUserDto);
   if (validationErrors.length > 0) {
     ctx.status = 400;
-    ctx.body = { message: validationErrors };
+    ctx.body = { error: validationErrors };
     return;
   }
 

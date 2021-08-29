@@ -4,15 +4,16 @@ import { validate } from 'class-validator';
 import type { ValidationError } from 'class-validator';
 
 import SendSMSCodeDto from 'typings/sms.dto';
+import type { CheckSMSCodeProps, SendSMSCodeProps } from 'typings/sms';
 
 export const sendSMSCode = async (ctx: Context): Promise<void> => {
-  const { phoneNumber } = ctx.request.body;
+  const { phoneNumber }: SendSMSCodeProps = ctx.request.body;
 
   const sendSMSCodeDto = new SendSMSCodeDto({ phoneNumber });
   const validationErrors: ValidationError[] = await validate(sendSMSCodeDto);
   if (validationErrors.length > 0) {
     ctx.status = 400;
-    ctx.body = { message: validationErrors };
+    ctx.body = { error: validationErrors };
     return;
   }
 
@@ -46,7 +47,7 @@ export const sendSMSCode = async (ctx: Context): Promise<void> => {
 };
 
 export const checkSMSCode = async (ctx: Context): Promise<void> => {
-  const { phoneNumber, code } = ctx.request.body;
+  const { phoneNumber, code }: CheckSMSCodeProps = ctx.request.body;
 
   if (!ctx.session) throw new TypeError('"ctx.session" is not defined');
   if (!ctx.session.code) ctx.session.code = {};
