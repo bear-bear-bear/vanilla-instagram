@@ -22,7 +22,7 @@ export default async function saveErrorMessage(err: unknown): Promise<void> {
 
   try {
     if (err instanceof Error) {
-      await fsPromise.appendFile(logFile, `[${now}] --> ${err.message}\n\n`);
+      await fsPromise.appendFile(logFile, `[${now}] --> ${err.stack || err.message}\n\n`);
       return;
     }
     console.error('"err" 인자가 "Error" 의 인스턴스가 아니라 로그에 기록할 수 없습니다.');
