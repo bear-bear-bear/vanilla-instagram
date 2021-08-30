@@ -4,6 +4,7 @@ import smsRouter from './sms';
 import userRouter from './user';
 
 const router = new Router();
+router.prefix('/api');
 
 // TODO: 프런트 측에 에러 페이지 요구
 router.use('(.*)', async (ctx, next) => {
