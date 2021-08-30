@@ -14,6 +14,9 @@ export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
     where: { username },
   });
 
+  console.log('username:', username);
+  console.log('exUser', exUser);
+
   if (exUser) {
     ctx.status = 409;
     ctx.body = { error: '이미 존재하는 username 입니다.' };

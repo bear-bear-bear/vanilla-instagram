@@ -9,8 +9,6 @@ class User extends Model {
   public realname!: string;
   public username!: string;
   public password!: string;
-  public follower_count!: number;
-  public following_count!: number;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
   public readonly deleted_at!: Date | null;
@@ -38,7 +36,7 @@ class User extends Model {
 User.init(
   {
     phone_number: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(30),
       allowNull: false,
     },
     realname: {
@@ -53,16 +51,6 @@ User.init(
     password: {
       type: DataTypes.STRING(255),
       allowNull: false,
-    },
-    follower_count: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0,
-    },
-    following_count: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0,
     },
   },
   {
