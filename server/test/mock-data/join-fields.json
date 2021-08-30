@@ -1,6 +1,6 @@
 {
-  "phoneNumber": "+821012345678",
-  "realname": "홍길동",
-  "username": "honggildong123",
+  "phone_number": "+821012345678",
+  "realname": "테스트유저",
+  "username": "test",
   "password": "Password@123"
 }
