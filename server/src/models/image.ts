@@ -5,11 +5,11 @@ import type { Database } from './index';
 
 class Image extends Model {
   public readonly id!: number;
-  public readonly post_id!: number;
+  public readonly postId!: number;
   public name!: string;
-  public readonly created_at!: Date;
-  public readonly updated_at!: Date;
-  public readonly deleted_at!: Date | null;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+  public readonly deletedAt!: Date | null;
 
   public static associate = (db: Database): void => {
     db.Image.belongsTo(db.Post);

@@ -6,10 +6,10 @@ class Admin extends Model {
   public readonly id!: number;
   public username!: string;
   public password!: string;
-  public readonly expired_at!: Date | null;
-  public readonly created_at!: Date;
-  public readonly updated_at!: Date;
-  public readonly deleted_at!: Date | null;
+  public readonly expiredAt!: Date | null;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+  public readonly deletedAt!: Date | null;
 }
 
 Admin.init(
@@ -23,7 +23,7 @@ Admin.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    expired_at: {
+    expiredAt: {
       type: DataTypes.DATEONLY,
       allowNull: true,
     },

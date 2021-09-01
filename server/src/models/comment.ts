@@ -5,12 +5,12 @@ import type { Database } from './index';
 
 class Comment extends Model {
   public readonly id!: number;
-  public readonly user_id!: number;
-  public readonly post_id!: number;
+  public readonly userId!: number;
+  public readonly postId!: number;
   public content!: string;
-  public readonly created_at!: Date;
-  public readonly updated_at!: Date;
-  public readonly deleted_at!: Date | null;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+  public readonly deletedAt!: Date | null;
 
   public static associate = (db: Database): void => {
     db.Comment.belongsToMany(db.User, { through: 'comment_like', as: 'CommentLikers' });
