@@ -56,9 +56,7 @@ export const createUser = async (ctx: Context): Promise<void> => {
 
   const hashedPassword = await bcrypt.hash(createUserFields.password, 10);
   await User.create({
-    phone_number: createUserFields.phoneNumber, // TODO: 카멜케이스로 적어도 DB에서 스네이크로 자동 변환되는지 확인하기
-    realname: createUserFields.realname,
-    username: createUserFields.username,
+    ...createUserFields,
     password: hashedPassword,
   });
 

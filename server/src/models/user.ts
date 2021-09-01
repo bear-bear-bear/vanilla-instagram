@@ -5,15 +5,13 @@ import type { Database } from './index';
 
 class User extends Model {
   public readonly id!: number;
-  public phone_number!: string;
+  public phonNumber!: string;
   public realname!: string;
   public username!: string;
   public password!: string;
-  public follower_count!: number;
-  public following_count!: number;
-  public readonly created_at!: Date;
-  public readonly updated_at!: Date;
-  public readonly deleted_at!: Date | null;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+  public readonly deletedAt!: Date | null;
 
   public static associate = (db: Database): void => {
     db.User.hasMany(db.Post);
@@ -37,7 +35,7 @@ class User extends Model {
 
 User.init(
   {
-    phone_number: {
+    phoneNumber: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
@@ -53,16 +51,6 @@ User.init(
     password: {
       type: DataTypes.STRING(255),
       allowNull: false,
-    },
-    follower_count: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0,
-    },
-    following_count: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0,
     },
   },
   {

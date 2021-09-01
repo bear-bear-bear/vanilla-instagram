@@ -5,7 +5,7 @@ import type { Database } from './index';
 
 class Hashtag extends Model {
   public readonly id!: number;
-  public readonly user_id!: number;
+  public readonly userId!: number;
   public name!: string;
 
   public static associate = (db: Database): void => {
