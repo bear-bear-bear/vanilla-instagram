@@ -4,7 +4,7 @@ export default function getJoinTestFields(): CreateUserProps {
   const seed = Math.ceil(Math.random() * 1000);
   const unique = `${Date.now()}${seed}`;
   return {
-    phoneNumber: '+821000000000',
+    phoneNumber: process.env.TWILIO_TEST_TO as string,
     realname: 'test',
     username: `test_${unique}`,
     password: 'test0000',
