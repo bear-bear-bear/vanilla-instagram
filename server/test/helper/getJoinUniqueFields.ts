@@ -1,6 +1,6 @@
 import type { CreateUserProps } from 'typings/user';
 
-export default async function getJoinTestFields(): Promise<CreateUserProps> {
+export default function getJoinTestFields(): CreateUserProps {
   const seed = Math.ceil(Math.random() * 1000);
   const unique = `${Date.now()}${seed}`;
   return {
