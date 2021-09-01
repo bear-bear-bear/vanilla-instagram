@@ -31,7 +31,7 @@ export const sendSMSCode = async (ctx: Context): Promise<void> => {
 
   const recipient = await client.messages
     .create({
-      body: `[TOYSTAGRAM] 인증번호: ${codeStr} 인증번호를 입력해주세요.`,
+      body: `[TOYSTAGRAM] 인증번호 [${codeStr}]를 입력해주세요.`,
       from: process.env.TWILIO_FROM,
       to: phoneNumber,
     })
