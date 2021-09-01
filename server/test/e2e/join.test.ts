@@ -22,7 +22,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await User.destroy({
     where: { id: joinedMockUser.id },
-    force: true,
+    force: true, // ignore paranoid
   });
 
   listener.close();
