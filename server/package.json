@@ -7,7 +7,7 @@
     "prepare": "cd ../ && npx husky install server/.husky",
     "build": "cross-env NODE_ENV=production swc --config-file .swcrc.json src/ -d dist &",
     "start": "cross-env NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/server.ts",
-    "test": "cross-env NODE_ENV=development jest --detectOpenHandles",
+    "test": "cross-env NODE_ENV=development jest",
     "lint": "eslint .",
     "db:create": "cross-env NODE_ENV=development ts-node src/lib/createDatabase.ts"
   },
