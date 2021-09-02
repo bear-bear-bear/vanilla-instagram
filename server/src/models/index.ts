@@ -25,5 +25,14 @@ Hashtag.associate(db);
 Image.associate(db);
 Comment.associate(db);
 
+export const connectDB = async (): Promise<void> => {
+  await db.sequelize
+    .sync({
+      force: false,
+      logging: false,
+    })
+    .catch((err) => console.error(err.message));
+};
+
 export type Database = typeof db;
 export default db;

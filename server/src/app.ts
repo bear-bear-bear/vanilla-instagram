@@ -8,7 +8,6 @@ import session from 'koa-session';
 import logger from 'koa-logger';
 // import cors from 'cors';
 
-import db from './models';
 import router from './routes';
 import saveErrorMessage from './lib/saveErrorMessage';
 
@@ -20,13 +19,6 @@ if (process.env.NODE_ENV === 'production') {
 
 const app = new Koa();
 export const staticDir = path.join(__dirname, 'public'); // build from client
-
-db.sequelize
-  .sync({
-    force: false,
-    logging: false,
-  })
-  .catch((err) => console.error(err.message));
 
 app.use(logger());
 app.use(bodyParser());
