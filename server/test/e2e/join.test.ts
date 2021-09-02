@@ -46,3 +46,60 @@ describe(`사용 가능한 username인지 확인`, () => {
     expect(response.status).toBe(409);
   });
 });
+
+describe('SMS 인증코드 전송', () => {
+  const reqURL = `${PREFIX}/sms`;
+
+  it('전화번호 양식에 대해 validation 수행', async () => {
+    const wrongPhoneNumber = 'abcd1234';
+    const response = await router.post(reqURL).send({ phoneNumber: wrongPhoneNumber });
+
+    expect(response.status).toBe(400);
+  });
+
+  it('유효하지 않은 번호에 대해 400 반환', async () => {
+    const notValidPhoneNumber = '+821000000000';
+    const response = await router.post(reqURL).send({ phoneNumber: notValidPhoneNumber });
+
+    expect(response.status).toBe(400);
+  });
+
+  /**
+   * @desc 비용문제로 주석처리
+   */
+  // it('인증코드 전송 성공 시 200과 함께 전화번호가 포함된 메세지와 해당 코드의 maxAge 반환', async () => {
+  //   const { phoneNumber: validPhoneNumber } = newJoinFields;
+  //   const response = await router.post(reqURL).send({ phoneNumber: validPhoneNumber });
+  //   const { message, data } = response.body;
+
+  //   expect(response.status).toBe(200);
+  //   expect(message).toContain<string>(validPhoneNumber);
+  //   expect<Session['maxAge']>(data.maxAge).toBe(ctx.session?.maxAge);
+  // });
+});
+
+describe('SMS 인증코드 확인', () => {
+  const reqURL = `${PREFIX}/sms/match`;
+
+  it('API가 동작함', async () => {
+    const { phoneNumber } = newJoinFields;
+    const response = await router.post(reqURL).send({
+      phoneNumber,
+      code: '000000',
+    });
+
+    expect(response.status).not.toBe(404);
+  });
+});
+
+describe('회원가입 요청', () => {
+  const reqURL = `${PREFIX}/user`;
+
+  it('API 동작함', async () => {
+    const response = await router.post(reqURL).send({
+      ...newJoinFields,
+    });
+
+    expect(response.status).not.toBe(404);
+  });
+});
