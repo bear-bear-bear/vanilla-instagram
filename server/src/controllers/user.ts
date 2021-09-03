@@ -27,7 +27,6 @@ export const createUser = async (ctx: Context): Promise<void> => {
   const createUserFields: CreateUserProps = ctx.request.body;
 
   if (!ctx.session) throw new TypeError('"ctx.session" is not defined');
-  console.log('checked', ctx.session?.checked);
   const isCheckedPhone = ctx.session?.checked?.includes(createUserFields.phoneNumber);
   if (!isCheckedPhone) {
     ctx.status = 401;

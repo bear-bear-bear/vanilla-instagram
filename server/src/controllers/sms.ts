@@ -28,22 +28,34 @@ export const sendSMSCode = async (ctx: Context): Promise<void> => {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const client = twilio(accountSid, authToken);
-
-  const recipient = await client.messages
-    .create({
-      body: `[TOYSTAGRAM] 인증번호: ${codeStr} 인증번호를 입력해주세요.`,
-      from: process.env.TWILIO_FROM,
-      to: phoneNumber,
-    })
-    .then((info) => info.to);
-
-  ctx.status = 200;
-  ctx.body = {
-    message: `${recipient} 번호로 인증번호가 전송되었습니다.`,
-    data: {
-      maxAge: ctx.session.maxAge, // 클라이언트에 타이머 요청하기
-    },
+  const messageOption = {
+    body: `[TOYSTAGRAM] 인증번호 [${codeStr}]를 입력해주세요.`,
+    from: process.env.TWILIO_FROM,
+    to: phoneNumber,
   };
+
+  await client.messages
+    .create(messageOption)
+    .then((info) => {
+      ctx.status = 200;
+      ctx.body = {
+        message: `${info.to} 번호로 인증번호가 전송되었습니다.`,
+        data: {
+          maxAge: ctx.session?.maxAge, // TODO: 클라이언트에 타이머 요청하기
+        },
+      };
+    })
+    .catch((err) => {
+      if (err.code === 21211) {
+        ctx.status = 400;
+        ctx.body = {
+          error: '유효하지 않은 전화번호 입니다.',
+        };
+        return;
+      }
+      // vaild error 가 아닐 경우 서버 오류로 판단하고 throw
+      throw new Error(err);
+    });
 };
 
 export const checkSMSCode = async (ctx: Context): Promise<void> => {
