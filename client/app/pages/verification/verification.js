@@ -1,6 +1,5 @@
 import dynamicInput from '@/lib/DynamicInput';
 
-dynamicInput.setDefaultStyle();
 const authForm = document.querySelector('.auth-form');
 const verificationInput = dynamicInput.create('', {
   type: 'text',

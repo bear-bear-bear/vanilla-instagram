@@ -9,7 +9,7 @@ const phoneNumberInput = dynamicInput.create('전화번호', {
 const RealNameInput = dynamicInput.create('성명', {
   type: 'text',
   required: 'required',
-  pattern: '^([가-힣]{2,20}|[a-zA-Z]+[a-zA-Zs]{2,20})$',
+  pattern: '^([가-힣]{2,20}|[a-zA-Z]{2,20})$',
 });
 const userNameInput = dynamicInput.create('사용자 이름', {
   type: 'text',
