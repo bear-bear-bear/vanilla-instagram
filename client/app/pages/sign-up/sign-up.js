@@ -1,4 +1,4 @@
-import dynamicInput from '@/lib/DynamicInput';
+import dynamicInput from '@/lib/dynamicInput';
 
 const authForm = document.querySelector('.auth-form');
 const phoneNumberInput = dynamicInput.create('전화번호', {
