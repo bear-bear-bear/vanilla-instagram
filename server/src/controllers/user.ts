@@ -11,7 +11,7 @@ export const verifyExistenceUsername = async (ctx: Context): Promise<void> => {
   const { username }: VerifyExistenceUsernameProps = ctx.params;
 
   const exUser = await User.findOne({
-    where: { username },
+    where: { username: username.toLowerCase() },
   });
 
   if (exUser) {
