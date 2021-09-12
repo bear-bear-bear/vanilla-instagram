@@ -1,4 +1,5 @@
-import { IsMobilePhone, IsString } from 'class-validator';
+import { IsMobilePhone, IsString, Matches } from 'class-validator';
+import regex from 'src/lib/regex';
 import type { SendSMSCodeProps } from 'typings/sms';
 
 export default class SendSMSCodeDto {
@@ -7,6 +8,7 @@ export default class SendSMSCodeDto {
   }
 
   @IsString()
-  @IsMobilePhone('ko-KR')
+  @IsMobilePhone('ko-KR', { strictMode: true })
+  @Matches(regex.phoneNumber)
   phoneNumber!: string;
 }
