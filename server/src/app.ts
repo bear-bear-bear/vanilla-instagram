@@ -8,7 +8,7 @@ import session from 'koa-session';
 import logger from 'koa-logger';
 // import cors from 'cors';
 
-import setKoaMiddleware from 'src/lib/setKoaMiddleware';
+import setSwaggerMiddleware from 'src/lib/setSwaggerMiddleware';
 import router from './routes';
 import saveErrorMessage from './lib/saveErrorMessage';
 
@@ -23,7 +23,7 @@ export const staticDir = path.join(__dirname, 'public'); // build from client
 
 app.use(logger());
 app.use(bodyParser());
-setKoaMiddleware(app);
+setSwaggerMiddleware(app);
 app.keys = [process.env.COOKIE_SECRET as string];
 
 const sessionOption = {
