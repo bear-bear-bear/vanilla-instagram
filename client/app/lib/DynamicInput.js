@@ -4,7 +4,7 @@ const dynamicInput = {
   /**
    * @desc input 엘리먼트 생성
    */
-  create: (labelText, inputAttributeObj = {}) => {
+  create(labelText, inputAttributeObj = {}) {
     const { className } = this;
     const inputWrapper = document.createElement('section');
     inputWrapper.classList.add(`${className}-wrap`);
@@ -25,7 +25,7 @@ const dynamicInput = {
   /**
    * @desc 기본 스타일을 <head>에 추가
    */
-  setDefaultStyle: () => {
+  setDefaultStyle() {
     const { className } = this;
     const styleTag = document.createElement('style');
     styleTag.setAttribute('type', 'text/css');
@@ -69,7 +69,7 @@ const dynamicInput = {
   /**
    * @desc input 엘리먼트에 밸류 여부에 따라 label 포지션을 변경하는 이벤트 리스너 추가
    */
-  inputDetector: () => {
+  inputDetector() {
     const { className } = this;
     const inputs = document.querySelectorAll(className);
 
