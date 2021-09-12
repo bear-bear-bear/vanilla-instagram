@@ -71,7 +71,7 @@ const dynamicInput = {
    */
   inputDetector() {
     const { className } = this;
-    const inputs = document.querySelectorAll(className);
+    const inputs = document.querySelectorAll(`.${className}`);
 
     const handlePosition = (e) => {
       const label = e.target.parentNode.querySelector('label');
