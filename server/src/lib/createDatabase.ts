@@ -40,7 +40,7 @@ const createDatabase = async () => {
   const command = {
     CREATE_DB: 'npx sequelize-cli db:create',
     SEED_ALL: 'npx sequelize-cli db:seed:all',
-    TRANSFILE_SEEDERS: 'npx tsc src/seeders/*.ts --outDir seeders --esModuleInterop',
+    SEED_DROP_ALL: 'npx sequelize-cli db:seed:undo:all',
   };
 
   try {
@@ -62,6 +62,7 @@ const createDatabase = async () => {
         return copyFile(from, to);
       });
       await Promise.all(seederCopyPromises);
+      execSync(command.SEED_DROP_ALL);
       execSync(command.SEED_ALL);
       rm(seedersDirTo);
     }
