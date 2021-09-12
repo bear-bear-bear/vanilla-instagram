@@ -8,7 +8,6 @@
       "DOM.Iterable"
     ],
     "allowJs": true,
-    "checkJs": true,
     "outDir": "./dist",
     "downlevelIteration": true,
     "resolveJsonModule": true,

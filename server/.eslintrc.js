@@ -26,7 +26,8 @@ module.exports = {
   },
   ignorePatterns: [
     'node_modules/',
-    'src/public/', // client's webpack build
+    'seeders/', // sequelize seeder
+    'public/', // client's webpack build
     '**/dist/', // typescript build
     // '**/*\\.test.[jt]s', // test files
     '**/*\\.config\\.[jt]s', // config files
