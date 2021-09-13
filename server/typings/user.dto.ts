@@ -18,21 +18,16 @@ export class CreateUserDto {
     this.password = password;
   }
 
+  @IsString()
   @IsMobilePhone('ko-KR', { strictMode: true })
   @Matches(regex.phoneNumber)
   phoneNumber!: string;
 
   @IsString()
-  @MinLength(2)
-  @MaxLength(30)
   @Matches(regex.realname)
   realname!: string;
 
   @IsString()
-  @MinLength(4)
-  @MaxLength(30)
-  @IsAlphanumeric()
-  @IsLowercase()
   @Matches(regex.username)
   username!: string;
 
