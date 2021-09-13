@@ -9,8 +9,6 @@ const users = [...Array(30)].map(() => ({
   updated_at: new Date(),
 }));
 
-console.log(users);
-
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert('user', users);
