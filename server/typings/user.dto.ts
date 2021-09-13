@@ -7,6 +7,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import regex from 'src/lib/regex';
 import type { CreateUserProps, ReadUserProps } from 'typings/user';
 
 export class CreateUserDto {
@@ -17,23 +18,21 @@ export class CreateUserDto {
     this.password = password;
   }
 
-  @IsMobilePhone('ko-KR')
+  @IsString()
+  @IsMobilePhone('ko-KR', { strictMode: true })
+  @Matches(regex.phoneNumber)
   phoneNumber!: string;
 
   @IsString()
-  @MinLength(2)
-  @MaxLength(30)
+  @Matches(regex.realname)
   realname!: string;
 
   @IsString()
-  @MinLength(4)
-  @MaxLength(30)
-  @IsAlphanumeric()
-  @IsLowercase()
+  @Matches(regex.username)
   username!: string;
 
   @IsString()
-  @Matches(/.+/) // TODO: regex 회의 후 수정
+  @Matches(regex.password) // TODO: regex 회의 후 수정
   password!: string;
 }
 
