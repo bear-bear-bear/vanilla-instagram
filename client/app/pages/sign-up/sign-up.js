@@ -7,7 +7,7 @@ const phoneNumberInput = dynamicInput.create('전화번호', {
   required: 'required',
   pattern: pattern.phoneNumber,
 });
-const RealNameInput = dynamicInput.create('성명', {
+const realNameInput = dynamicInput.create('성명', {
   type: 'text',
   required: 'required',
   pattern: pattern.realname,
@@ -23,7 +23,7 @@ const passwordInput = dynamicInput.create('비밀번호', {
   pattern: pattern.password,
 });
 
-authForm.prepend(phoneNumberInput, RealNameInput, userNameInput, passwordInput);
+authForm.prepend(phoneNumberInput, realNameInput, userNameInput, passwordInput);
 
 dynamicInput.setDefaultStyle();
 dynamicInput.inputDetector();
