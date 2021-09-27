@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "es6",
     "module": "commonjs",
     "lib": [
       "es5",
@@ -8,7 +8,6 @@
       "DOM.Iterable"
     ],
     "allowJs": true,
-    "checkJs": true,
     "outDir": "./dist",
     "downlevelIteration": true,
     "resolveJsonModule": true,
@@ -19,8 +18,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "app": ["./src"],
-      "app/*": ["./src/*"],
+      "src": ["./src"],
+      "src/*": ["./src/*"],
       "typings/*": ["./typings/*"]
     },
     "typeRoots": ["node_modules/@types", "typings"],

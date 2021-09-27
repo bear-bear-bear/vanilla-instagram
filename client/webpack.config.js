@@ -13,10 +13,11 @@ const pageNames = require('./page.config.js');
 
 const pageNameToHtmlPathMap = pageNames.reduce((acc, page) => {
   const pageName = page !== 'home' ? page : 'index';
-  const htmlPath = `/${pageName}.html`;
+  const extension = process.env.NODE_ENV === 'development' ? '.html' : '';
+  const resourcePath = `/${pageName}${extension}`;
   const pugPageHrefVariable = page.replace(/-/g, '_');
 
-  acc[pugPageHrefVariable] = htmlPath;
+  acc[pugPageHrefVariable] = resourcePath;
   return acc;
 }, {});
 

@@ -18,8 +18,8 @@ const watchPugs = async () => {
   koa server로 정적이라 할 수 있는 번들 결과물들을 제공하면서도, hmr 과 유사한 효과를 낼 수 있게 해줌.
  */
 const onReloadSSE = () => {
-  // const source = new EventSource(`http://localhost:${SERVER_PORT}/sse`);
-  const source = new EventSource(`http://localhost:8001/sse`);
+  // const source = new EventSource(`http://localhost:${SERVER_PORT}/hot`);
+  const source = new EventSource(`http://localhost:8001/hot`);
   source.onmessage = () => window.location.reload();
 };
 

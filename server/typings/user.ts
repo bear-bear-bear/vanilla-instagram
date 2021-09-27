@@ -1,3 +1,7 @@
+export interface VerifyExistenceUsernameProps {
+  username: string;
+}
+
 export interface CreateUserProps {
   phoneNumber: string;
   realname: string;
