@@ -1,25 +1,26 @@
 import dynamicInput from '@/lib/dynamicInput';
+import pattern from '@/lib/regex';
 
 const authForm = document.querySelector('.auth-form');
 const phoneNumberInput = dynamicInput.create('전화번호', {
   type: 'number',
   required: 'required',
-  pattern: '^(?=1)[d]{0,10}$',
+  pattern: pattern.phoneNumber,
 });
 const RealNameInput = dynamicInput.create('성명', {
   type: 'text',
   required: 'required',
-  pattern: '^([가-힣]{2,20}|[a-zA-Z]{2,20})$',
+  pattern: pattern.realname,
 });
 const userNameInput = dynamicInput.create('사용자 이름', {
   type: 'text',
   required: 'required',
-  pattern: '[w.]{6,20}',
+  pattern: pattern.username,
 });
 const passwordInput = dynamicInput.create('비밀번호', {
   type: 'text',
   required: 'required',
-  pattern: '[!@#$%^&*~+-w]{6,500}',
+  pattern: pattern.password,
 });
 
 authForm.prepend(phoneNumberInput, RealNameInput, userNameInput, passwordInput);
