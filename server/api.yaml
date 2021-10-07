@@ -1,0 +1,147 @@
+openapi: "3.0.0"
+info:
+  title: "Vanilla Instagram APIs"
+  description: >
+    3인 개발 서비스의 API 문서와 테스트를 위해 작성된 문서입니다.
+  version: "1.0.0"
+
+servers:
+  - url: "http://localhost:8001/api"
+    description: "개발 전용 서버"
+
+tags:
+  - name: SMS API
+    description: ❣ SMS 서비스에 관한 API
+  - name: 사용자 API
+    description: 😁 사용자에 관한 API
+  - name: 테스트 API
+    description: ⚠ 테스트를 위한 API
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: "세션 정보"
+
+paths:
+  /user:
+    post:
+      summary: "회원가입 API"
+      description: "인증 여부를 검사하고 회원가입을 수행합니다."
+      tags:
+        - 사용자 API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              phoneNumber: "01011112222"
+              realname: "name"
+              username: "name"
+              password: "password"
+      responses:
+        201:
+          description: "회원가입 완료"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: "회원가입이 완료되었습니다"
+        401:
+          description: "번호 인증이 되지 않음"
+        409:
+          description: "유저가 이미 존재함"
+        400:
+          description: "요청 폼이 잘못 되었거나, 인증상태에서 접근 됨"
+
+  /user/{username}/exist:
+    get:
+      tags:
+        - 사용자 API
+      summary: "유저네임 검증 API"
+      description: "사용가능한 유저 이름인 지 검사합니다."
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: "회원가입에 사용 될 이름"
+      responses:
+        202:
+          description: "사용 가능한 이름"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: 202
+                message: "사용 가능한 username 입니다."
+        409:
+          description: "사용중인 이름"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: "이미 존재하는 username 입니다."
+  /sms:
+    post:
+      summary: "인증 코드 발송 API"
+      description: "폰 번호를 받아서 회원가입 인증코드를 발송합니다"
+      tags:
+        - SMS API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              phoneNumber: "01011112222"
+      responses:
+        200:
+          description: "인증번호 전송 완료"
+          content:
+            application/json:
+              schema:
+                type: obejct
+              example:
+                message: "01011112222 번호로 인증번호가 전송되었습니다."
+                data:
+                  maxAge: 493294
+        400:
+          description: "유효하지 않은 전화번호 또는 요청 폼이 잘못되었음"
+
+  /sms/match:
+    post:
+      summary: "인증코드 인증 API"
+      description: "회원가입 수행 전, 코드를 입력받아서 발송된 정보와 일치하는 지 검사합니다."
+      tags:
+        - SMS API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              phoneNumber: "01011112222"
+              code: 10101
+      responses:
+        202:
+          description: "인증번호 확인 성공"
+          content:
+            application/json:
+              schema:
+                type: obejct
+              example:
+                message: "인증번호 확인 완료."
+        400:
+          description: "잘못된 인증번호"
+        410:
+          description: "인증 번호 만료 또는 존재하지 않은 인증 정보"
