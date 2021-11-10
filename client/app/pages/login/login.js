@@ -21,7 +21,9 @@ const cycleImage = () => {
   for (let i = 0; i < 5; i += 1) {
     setTimeout(() => {
       iphoneImage.childNodes[i].classList.add('iphone__screen--curr');
-      iphoneImage.childNodes[(i - 1) % 5].classList.remove('iphone__screen--curr');
+      if (i === 0) {
+        iphoneImage.childNodes[4].classList.remove('iphone__screen--curr');
+      } else iphoneImage.childNodes[i - 1].classList.remove('iphone__screen--curr');
     }, i * 7500);
   }
 };
