@@ -13,11 +13,47 @@
     margin-top: 0.55rem;
     margin-left: 15.35rem;
     height: 20.5rem;
-    width: 13rem;
+    width: 11.46rem;
+    position: absolute;
+    transition: opacity 3.5s;
 
     &--first {
-      background: url(~@images/image-cycle/first.jpg) no-repeat;
+      background: url(~@images/image-cycle/1-img.jpg) no-repeat;
       background-size: contain;
+      z-index: 5;
+      opacity: 0;
+    }
+
+    &--second {
+      background: url(~@images/image-cycle/2-img.jpg) no-repeat;
+      background-size: contain;
+      z-index: 4;
+      opacity: 0;
+    }
+
+    &--third {
+      background: url(~@images/image-cycle/3-img.jpg) no-repeat;
+      background-size: contain;
+      z-index: 3;
+      opacity: 0;
+    }
+
+    &--fourth {
+      background: url(~@images/image-cycle/4-img.jpg) no-repeat;
+      background-size: contain;
+      z-index: 2;
+      opacity: 0;
+    }
+
+    &--fifth {
+      background: url(~@images/image-cycle/5-img.jpg) no-repeat;
+      background-size: contain;
+      z-index: 1;
+      opacity: 0;
+    }
+
+    &--curr {
+      opacity: 1;
     }
   }
 }
