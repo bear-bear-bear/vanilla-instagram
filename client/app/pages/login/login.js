@@ -26,4 +26,4 @@ const cycleImage = () => {
   }
 };
 cycleImage();
-setInterval(cycleImage, 375000);
+setInterval(cycleImage, 37500);
